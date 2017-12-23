@@ -1,8 +1,10 @@
 {
   "name": "receipt-annotation",
   "version": "0.1.0",
-  "main": "index.html",
   "repository": "git@github.com:non117/receipt-annotation.git",
   "author": "non <mail@non117.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.7.10"
+  }
 }
