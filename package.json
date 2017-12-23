@@ -6,5 +6,9 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^1.7.10"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "yarn run build && yarn run electron ./dist/main.js"
   }
 }
