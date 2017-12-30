@@ -9,8 +9,8 @@ export default class ItemRow extends React.PureComponent<ItemRowProps, {}> {
       <tr>
         <td className="operation">➖</td>
         <td>{name}</td>
-        <td>{price}</td>
         <td>{account}</td>
+        <td>{price}</td>
       </tr>
     );
   }
