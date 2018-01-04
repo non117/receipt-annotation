@@ -16,19 +16,21 @@ export default class ItemTable extends React.PureComponent<ItemTableProps, {}> {
             <th>Price</th>
           </tr>
         </thead>
-        { items.map(item => <tr><ItemRow {...item} /></tr>)}
-        <tr>
-          <td className="operation"><button>➕</button></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td className="operation"></td>
-          <td></td>
-          <td>Sum</td>
-          <td>{sum}</td>
-        </tr>
+        <tbody>
+          { items.map(item => <ItemRow key={item.name} {...item} />)}
+          <tr>
+            <td className="operation"><button>➕</button></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td className="operation"></td>
+            <td></td>
+            <td>Sum</td>
+            <td>{sum}</td>
+          </tr>
+        </tbody>
       </table>
     );
   }

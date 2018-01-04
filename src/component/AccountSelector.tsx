@@ -7,7 +7,7 @@ export default class AccountSelector extends React.PureComponent<AccountSelector
     return (
       <div>
         <label>Account</label>
-        <select value={null}>
+        <select value={undefined}>
           {this.props.accounts}
         </select>
       </div>
