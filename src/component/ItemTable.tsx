@@ -1,7 +1,7 @@
 import * as React from "react";
 import ItemRow, { ItemProps } from "./ItemRow";
 
-export interface ItemsProps { items: ItemProps[]; sum: number }
+interface ItemsProps { items: ItemProps[]; sum: number }
 
 export default class ItemTable extends React.PureComponent<ItemsProps, {}> {
   render(): React.ReactNode {

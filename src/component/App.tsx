@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ReceiptImage, { ReceiptImageProps } from "./ReceiptImage";
+import ReceiptImage from "./ReceiptImage";
 import AccountSelector from "./AccountSelector";
 import DateSelector from "./DateSelector";
 import ItemTable from "./ItemTable";

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export interface DateSelectorProps { date: string }
+interface DateSelectorProps { date: string }
 
 export default class DateSelector extends React.PureComponent<DateSelectorProps, {}> {
   render(): React.ReactNode {

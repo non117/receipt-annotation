@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export interface ReceiptImageProps { imagePath: string }
+interface ReceiptImageProps { imagePath: string }
 
 export default class ReceiptImage extends React.PureComponent<ReceiptImageProps, {}> {
   render(): React.ReactNode {
