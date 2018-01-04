@@ -1,8 +1,8 @@
 import * as React from "react";
 
-export interface ItemRowProps { name: string; price: number; account: string }
+export interface ItemProps { name: string; price: number; account: string }
 
-export default class ItemRow extends React.PureComponent<ItemRowProps, {}> {
+export default class ItemRow extends React.PureComponent<ItemProps, {}> {
   render(): React.ReactNode {
     const { name, price, account } = this.props;
     return (
