@@ -1,5 +1,6 @@
 import * as Axios from "axios";
 import { AxiosPromise } from "axios";
+import { readEncodedImage } from "./ImageReader";
 
 declare module namespace {
   // request structure
@@ -31,7 +32,7 @@ declare module namespace {
     textAnnotations: TextAnnotation[];
   }
 }
-class Client {
+export class Client {
   axios: Axios.AxiosInstance;
   annotatePath: "/v1/images:annotate";
   constructor(apiKey: string) {
@@ -42,10 +43,20 @@ class Client {
   }
   // TODO: when promise is resolved?
   annotate(imagePath: string): AxiosPromise {
-    // get image from fs
-    // convert image base64
-    // create request structure
-    const data = "";
+    const b64Image = readEncodedImage(imagePath);
+    const data = {
+      "requests": [
+        {
+          "image": { "content": b64Image },
+          "features": [
+            {
+              "type": "TEXT_DETECTION",
+              "maxResults": 2
+            }
+          ]
+        }
+      ]
+    };
     return this.axios.post(this.annotatePath, data);
   }
 }
