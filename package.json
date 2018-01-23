@@ -1,0 +1,21 @@
+{
+  "name": "receipt-annotation",
+  "version": "0.1.0",
+  "repository": "git@github.com:non117/receipt-annotation.git",
+  "author": "non <mail@non117.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^16.0.31",
+    "@types/react-dom": "^16.0.3",
+    "electron": "^1.7.10"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "yarn run build && yarn run electron ./dist/main.js"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
+}
