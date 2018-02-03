@@ -29,9 +29,7 @@ class OCR
     }
   end
 
-  # TODO: fetchの引数は要検討
-  def fetch(image_path)
-    image_bin = Base64.strict_encode64(image_path.binread)
+  def call(image_bin)
     conn = Faraday.new(url: HOST)
     response = conn.post do |req|
       req.url ANNOTATE_API
@@ -39,6 +37,7 @@ class OCR
       req.params[:key] = @api_key
       req.body = body(image_bin).to_json
     end
+    JSON.parse(response.body)
   end
 end
 
@@ -90,6 +89,10 @@ class Line
     end
   end
 
+  # 店の名前を過去の事例から推定する
+  def shop_name(shop_name_db)
+  end
+
   private
   def is_date?
     @text.match(DATE_PATTERN)
@@ -104,6 +107,44 @@ class Line
     REPLACE_DATE_SYMBOLS.reduce(@text) do |date, sym|
       date.sub(sym, '/')
     end
+  end
+end
+
+class Receipt
+  def initialize(image_path, ocr_client)
+    @image_path = image_path
+    @ocr_client = ocr_client
+    @shop_name_db = []
+  end
+
+  def annotate!
+    image_bin = Base64.strict_encode64(File.binread(@image_path))
+    @annotated_receipt = @ocr_client.call(image_bin)
+    @lines = construct_lines(@annotated_receipt.dig('responses', 0, 'textAnnotations')[1..-1]) # 0番目は全テキストくっつけたやつ
+    self
+  end
+
+  def to_json
+    {
+      image_path: @image_path,
+      date: self.date,
+      sum: self.sum,
+      shop_name: self.shop_name,
+      annotated_receipt: @annotated_receipt,
+    }
+  end
+
+  private
+  def date
+    @lines.map(&:date).compact.first
+  end
+
+  def sum
+    @lines.map(&:sum).compact.first
+  end
+
+  def shop_name
+    @lines.map{ |line| line.shop_name(@shop_name_db) }.compact.first
   end
 end
 
@@ -126,6 +167,5 @@ def construct_lines(text_annotations)
   lines
 end
 
-def main(sample)
-  construct_lines(sample.dig('responses', 0, 'textAnnotations')[1..-1])
+def main()
 end
