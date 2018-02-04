@@ -78,15 +78,15 @@ class Line
   end
 
   def date
-    self.is_date? ? Time.parse(cleaned_date) : nil
+    is_date? ? Time.parse(cleaned_date) : nil
   rescue ArgumentError
     nil
   end
 
   # 合計が含まれる行ならば、数値っぽいのを取り出してみる
   def sum
-    if self.is_sum?
-      @text.each_char.map(&:ord).select(&:is_number?).map(&:chr).join.to_i
+    if is_sum?
+      @text.each_char.map(&:ord).select(&method(:is_number?)).map(&:chr).join.to_i
     end
   end
 
@@ -128,9 +128,9 @@ class Receipt
   def to_json
     {
       image_path: @image_path,
-      date: self.date,
-      sum: self.sum,
-      shop_name: self.shop_name,
+      date: date,
+      sum: sum,
+      shop_name: shop_name,
       annotated_receipt: @annotated_receipt,
     }
   end
