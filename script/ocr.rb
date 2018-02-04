@@ -61,9 +61,9 @@ class Text
   end
 
   # 前後の文字列の位置誤差が、フォントの高さに収まっているなら同じ行とする
-  def same_line?(another_text)
-    min_height = [@height, another_text.height].min
-    (another_text.position - @position).abs <= min_height
+  def same_line?(other_text)
+    min_height = [@height, other_text.height].min
+    (other_text.position - @position).abs < min_height / 3 # 閾値は適当
   end
 end
 
