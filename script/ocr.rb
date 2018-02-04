@@ -125,7 +125,7 @@ class Receipt
     self
   end
 
-  def to_json
+  def to_h
     {
       image_path: @image_path,
       date: date,
@@ -172,7 +172,15 @@ SETTINGS_FILE_PATH = './settings.yml'
 OUTPUT_FILENAME = 'receipts.json'
 
 def main()
-end  settings = YAML.load(File.read(SETTINGS_FILE_PATH))
+  settings = YAML.load(File.read(SETTINGS_FILE_PATH))
   receipt_image_directory = settings.dig('receipt_image_directory')
   output_directory = settings.dig('output_directory')
   receipt_images = Dir.glob(File.join(receipt_image_directory, '*'))
+  ocr = OCR.new(settings.dig('api_key'))
+  receipts = receipt_images.map do |image|
+    Receipt.new(image, ocr).annotate!.to_h
+  end
+  File.write(File.join(output_directory, OUTPUT_FILENAME), receipts.to_json)
+end
+
+main
