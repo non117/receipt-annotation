@@ -21,10 +21,12 @@ class OCR
           },
           features: [
             {
-              type: :TEXT_DETECTION,
-              maxResults: 2,
+              type: :DOCUMENT_TEXT_DETECTION,
             },
           ],
+          imageContext: {
+            languageHints: [:ja, :en],
+          },
         },
       ],
     }
