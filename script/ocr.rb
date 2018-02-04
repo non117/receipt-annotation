@@ -52,12 +52,13 @@ class Text
   #     vertices: [{x: 123, y: 0}, {x: 234, y: 1}, {x: 345, y:2}, {x: 456, y:3}]
   #   }
   # }
-  attr_accessor :height, :position, :text
+  attr_accessor :height, :position, :text, :x
   def initialize(text_annotation)
     @text = text_annotation['description']
     rect = text_annotation.dig('boundingPoly', 'vertices')
     @height = rect[3]['y'] - rect[0]['y']
     @position = (rect[3]['y'] + rect[0]['y']) / 2
+    @x = rect[0]['x']
   end
 
   # 前後の文字列の位置誤差が、フォントの高さに収まっているなら同じ行とする
@@ -75,6 +76,7 @@ class Line
   DATE_PATTERN = /(20\d\d-\d\d?-\d\d?)|(20\d\d年\d\d?月\d\d?日)/
   SUM_PATTERN = /合計/
   REPLACE_DATE_SYMBOLS = ['年', '月', '日']
+  attr_reader :text
   def initialize(texts)
     @text = texts.map(&:text).join
   end
@@ -151,23 +153,21 @@ class Receipt
   end
 end
 
-# 同じ行の文字列をくっつけていって、n行の文字列にまとめる
+# 自分のTextと同じ行と思われるTextを全探索し,
+# あとからuniqをかける.
+# OCR結果が行頭からの順序になってるとは限らないため.
 def construct_lines(text_annotations)
-  lines = []
-  prev_text = Text.new(text_annotations.first)
-  tmp_texts = [prev_text]
-  text_annotations[1..-1].each do |text_annotation|
-    text = Text.new(text_annotation)
-    if prev_text.same_line? text
-      tmp_texts << text
-    else
-      lines << Line.new(tmp_texts)
-      tmp_texts = [text]
-    end
-    prev_text = text
+  texts = text_annotations.map do |text_annotation|
+    Text.new(text_annotation)
   end
-  lines << Line.new(tmp_texts) unless tmp_texts.empty?
-  lines
+  lines = texts.map do |text|
+    line_texts = texts.select do |text_other|
+      text != text_other && text.same_line?(text_other)
+    end
+    line_texts << text
+    Line.new(line_texts.sort_by(&:x))
+  end
+  lines.uniq(&:text)
 end
 
 SETTINGS_FILE_PATH = './settings.yml'
