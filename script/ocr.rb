@@ -2,6 +2,7 @@ require 'base64'
 require 'faraday'
 require 'json'
 require 'time'
+require 'yaml'
 
 class OCR
   HOST = 'https://vision.googleapis.com'.freeze
@@ -167,5 +168,11 @@ def construct_lines(text_annotations)
   lines
 end
 
+SETTINGS_FILE_PATH = './settings.yml'
+OUTPUT_FILENAME = 'receipts.json'
+
 def main()
-end
+end  settings = YAML.load(File.read(SETTINGS_FILE_PATH))
+  receipt_image_directory = settings.dig('receipt_image_directory')
+  output_directory = settings.dig('output_directory')
+  receipt_images = Dir.glob(File.join(receipt_image_directory, '*'))
