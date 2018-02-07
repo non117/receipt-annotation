@@ -58,7 +58,7 @@ class Text
     rect = text_annotation.dig('boundingPoly', 'vertices')
     @height = rect[3]['y'] - rect[0]['y']
     @position = (rect[3]['y'] + rect[0]['y']) / 2
-    @x = rect[0]['x']
+    @x = rect.map{ |v| v['x'] }.compact.min
   end
 
   # 前後の文字列の位置誤差が、フォントの高さに収まっているなら同じ行とする
