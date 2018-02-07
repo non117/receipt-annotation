@@ -116,6 +116,7 @@ class Line
 end
 
 class Receipt
+  attr_reader :annotated_receipt
   def initialize(image_path, ocr_client)
     @image_path = image_path
     @ocr_client = ocr_client
@@ -135,7 +136,6 @@ class Receipt
       date: date,
       sum: sum,
       shop_name: shop_name,
-      annotated_receipt: @annotated_receipt,
     }
   end
 
@@ -172,6 +172,7 @@ end
 
 SETTINGS_FILE_PATH = './settings.yml'
 OUTPUT_FILENAME = 'receipts.json'
+DEBUG_FILENAME = 'debug_annotations.json'
 
 def main()
   settings = YAML.load(File.read(SETTINGS_FILE_PATH))
@@ -179,9 +180,13 @@ def main()
   output_directory = settings.dig('output_directory')
   receipt_images = Dir.glob(File.join(receipt_image_directory, '*'))
   ocr = OCR.new(settings.dig('api_key'))
+  original_annotations = []
   receipts = receipt_images.map do |image|
-    Receipt.new(image, ocr).annotate!.to_h
+    receipt = Receipt.new(image, ocr).annotate!
+    original_annotations << receipt.annotated_receipt
+    receipt.to_h
   end
+  File.write(File.join(output_directory, DEBUG_FILENAME), original_annotations.to_json)
   File.write(File.join(output_directory, OUTPUT_FILENAME), receipts.to_json)
 end
 
