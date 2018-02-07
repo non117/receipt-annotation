@@ -126,6 +126,7 @@ class Receipt
   def annotate!
     image_bin = Base64.strict_encode64(File.binread(@image_path))
     @annotated_receipt = @ocr_client.call(image_bin)
+    p @annotated_receipt["error"]
     @lines = construct_lines(@annotated_receipt.dig('responses', 0, 'textAnnotations')[1..-1]) # 0番目は全テキストくっつけたやつ
     self
   end
@@ -183,11 +184,17 @@ def main()
   original_annotations = []
   receipts = receipt_images.map do |image|
     receipt = Receipt.new(image, ocr).annotate!
+    puts receipt.to_h
     original_annotations << receipt.annotated_receipt
     receipt.to_h
   end
   File.write(File.join(output_directory, DEBUG_FILENAME), original_annotations.to_json)
   File.write(File.join(output_directory, OUTPUT_FILENAME), receipts.to_json)
+rescue e
+  puts e
+  puts e.backtrace.join "\n"
+  puts original_annotations.last
+  File.write(File.join(output_directory, DEBUG_FILENAME), original_annotations.to_json)
 end
 
 main
