@@ -58,7 +58,7 @@ class Text
     rect = text_annotation.dig('boundingPoly', 'vertices')
     @height = rect[3]['y'] - rect[0]['y']
     @position = (rect[3]['y'] + rect[0]['y']) / 2
-    @x = rect[0]['x']
+    @x = rect.map{ |v| v['x'] }.compact.min
   end
 
   # 前後の文字列の位置誤差が、フォントの高さに収まっているなら同じ行とする
@@ -116,6 +116,7 @@ class Line
 end
 
 class Receipt
+  attr_reader :annotated_receipt
   def initialize(image_path, ocr_client)
     @image_path = image_path
     @ocr_client = ocr_client
@@ -125,6 +126,7 @@ class Receipt
   def annotate!
     image_bin = Base64.strict_encode64(File.binread(@image_path))
     @annotated_receipt = @ocr_client.call(image_bin)
+    p @annotated_receipt["error"]
     @lines = construct_lines(@annotated_receipt.dig('responses', 0, 'textAnnotations')[1..-1]) # 0番目は全テキストくっつけたやつ
     self
   end
@@ -135,7 +137,6 @@ class Receipt
       date: date,
       sum: sum,
       shop_name: shop_name,
-      annotated_receipt: @annotated_receipt,
     }
   end
 
@@ -172,6 +173,7 @@ end
 
 SETTINGS_FILE_PATH = './settings.yml'
 OUTPUT_FILENAME = 'receipts.json'
+DEBUG_FILENAME = 'debug_annotations.json'
 
 def main()
   settings = YAML.load(File.read(SETTINGS_FILE_PATH))
@@ -179,10 +181,20 @@ def main()
   output_directory = settings.dig('output_directory')
   receipt_images = Dir.glob(File.join(receipt_image_directory, '*'))
   ocr = OCR.new(settings.dig('api_key'))
+  original_annotations = []
   receipts = receipt_images.map do |image|
-    Receipt.new(image, ocr).annotate!.to_h
+    receipt = Receipt.new(image, ocr).annotate!
+    puts receipt.to_h
+    original_annotations << receipt.annotated_receipt
+    receipt.to_h
   end
+  File.write(File.join(output_directory, DEBUG_FILENAME), original_annotations.to_json)
   File.write(File.join(output_directory, OUTPUT_FILENAME), receipts.to_json)
+rescue e
+  puts e
+  puts e.backtrace.join "\n"
+  puts original_annotations.last
+  File.write(File.join(output_directory, DEBUG_FILENAME), original_annotations.to_json)
 end
 
 main
