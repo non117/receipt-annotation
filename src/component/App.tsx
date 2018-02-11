@@ -4,24 +4,18 @@ import ReceiptImage from "./ReceiptImage";
 import AccountSelector from "./AccountSelector";
 import DateSelector from "./DateSelector";
 
-export interface AppProps {
-  image_path: string;
-  accounts: string[];
-  date: string;
-  sum: number;
-  shop_name: string;
-}
+import Receipt from "../domain/Receipt";
 
-export default class App extends React.PureComponent<AppProps, {}> {
+export default class App extends React.PureComponent<Receipt, {}> {
   render(): React.ReactNode {
-    const { image_path, accounts, date, sum } = this.props;
+    const { image_path, account, date, sum } = this.props;
     return (
       <div>
         <section id="receipt">
           <ReceiptImage imagePath={image_path} />
         </section>
         <section id="input">
-          <AccountSelector accounts={accounts} />
+          <AccountSelector accounts={[]} />
           <DateSelector date={date} />
           <input type="text" defaultValue={String(sum)} />
           <div>
