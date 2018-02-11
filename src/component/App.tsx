@@ -3,32 +3,27 @@ import * as React from "react";
 import ReceiptImage from "./ReceiptImage";
 import AccountSelector from "./AccountSelector";
 import DateSelector from "./DateSelector";
-import ItemTable from "./ItemTable";
-import { ItemProps } from "./ItemRow";
 
 export interface AppProps {
-  image: string;
+  image_path: string;
   accounts: string[];
   date: string;
-  items: ItemProps[];
   sum: number;
+  shop_name: string;
 }
 
 export default class App extends React.PureComponent<AppProps, {}> {
   render(): React.ReactNode {
-    const { image, accounts, date, items, sum } = this.props;
+    const { image_path, accounts, date, sum } = this.props;
     return (
       <div>
         <section id="receipt">
-          <ReceiptImage imagePath={image} />
+          <ReceiptImage imagePath={image_path} />
         </section>
         <section id="input">
           <AccountSelector accounts={accounts} />
           <DateSelector date={date} />
-          <div>
-            <button>🔃</button>
-          </div>
-          <ItemTable items={items} sum={sum}  />
+          <input type="text" defaultValue={String(sum)} />
           <div>
             <button id="register">登録</button>
           </div>
