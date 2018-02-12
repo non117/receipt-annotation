@@ -8,11 +8,11 @@ import Receipt from "../domain/Receipt";
 
 export default class App extends React.PureComponent<Receipt, {}> {
   render(): React.ReactNode {
-    const { image_path, account, date, sum } = this.props;
+    const { imagePath, account, date, sum } = this.props;
     return (
       <div>
         <section id="receipt">
-          <ReceiptImage imagePath={image_path} />
+          <ReceiptImage imagePath={imagePath} />
         </section>
         <section id="input">
           <AccountSelector accounts={[]} />
