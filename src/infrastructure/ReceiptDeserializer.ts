@@ -10,8 +10,10 @@ interface ReceiptJSON {
 export default class ReceiptDeserializer {
   static execute(receiptJson: ReceiptJSON): Receipt {
     let receipt = Object.create(Receipt.prototype);
-    return Object.assign(receipt, receiptJson, {
+    return Object.assign(receipt, {
       imagePath: receiptJson.image_path,
+      date: receiptJson.date,
+      sum: receiptJson.sum,
       shopName: receiptJson.shop_name,
     });
   }
