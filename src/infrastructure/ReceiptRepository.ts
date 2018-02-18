@@ -13,6 +13,10 @@ export class ReceiptRepository {
   set(index: number, receipt: Receipt) {
     this.db[index] = receipt;
   }
+
+  replace(receipts: Array<Receipt>) {
+    this.db = receipts;
+  }
 }
 
 // singleton
