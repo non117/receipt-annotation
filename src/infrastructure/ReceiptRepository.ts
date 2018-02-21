@@ -1,25 +1,20 @@
 const REPOSITORY_CHANGE = "REPOSITORY_CHANGE";
 import { EventEmitter } from "events";
-import Receipt from "../domain/Receipt";
+import ReceiptList from "../domain/ReceiptList";
 
 export class ReceiptRepository extends EventEmitter {
-  private db: Array<Receipt>
+  private list: ReceiptList
   constructor() {
     super();
-    this.db = [];
+    this.list = null;
   }
 
-  get(index: number): Receipt {
-    return this.db[index];
+  get(): ReceiptList {
+    return this.list;
   }
 
-  set(index: number, receipt: Receipt) {
-    this.db[index] = receipt;
-    this.emit(REPOSITORY_CHANGE);
-  }
-
-  replace(receipts: Array<Receipt>) {
-    this.db = receipts;
+  set(receiptList: ReceiptList) {
+    this.list = receiptList;
     this.emit(REPOSITORY_CHANGE);
   }
 

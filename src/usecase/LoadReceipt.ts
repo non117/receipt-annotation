@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import ReceiptList from "../domain/ReceiptList";
 import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
 import ReceiptDeserializer from "../infrastructure/ReceiptDeserializer";
 
@@ -18,6 +19,6 @@ export class LoadReceipt {
   execute(jsonPath: string) {
     const rawJson = fs.readFileSync(jsonPath).toString();
     const receipts = ReceiptDeserializer.deserializeFromString(rawJson);
-    this.receiptRepository.replace(receipts);
+    this.receiptRepository.set(new ReceiptList(receipts));
   }
 }

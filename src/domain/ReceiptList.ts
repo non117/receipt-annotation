@@ -4,8 +4,8 @@ export default class ReceiptList {
   private _receipts: Array<Receipt>;
   currentIndex: number;
 
-  constructor() {
-    this._receipts = [];
+  constructor(receipts: Array<Receipt>) {
+    this._receipts = receipts;
     this.currentIndex = 0;
   }
 
@@ -27,10 +27,6 @@ export default class ReceiptList {
 
   movePrev() {
     if (this.canMovePrev()) this.currentIndex--;
-  }
-
-  replace(receipts: Array<Receipt>) {
-    this._receipts = receipts;
   }
 
   updateReceipt(updated: Partial<ReceiptArgs>) {

@@ -6,9 +6,13 @@ import DateSelector from "./DateSelector";
 
 import Receipt from "../domain/Receipt";
 
-export default class ReceiptContainer extends React.PureComponent<Receipt, {}> {
+interface ReceiptProps {
+  receipt: Receipt;
+}
+
+export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
   render(): React.ReactNode {
-    const { imagePath, account, date, sum } = this.props;
+    const { imagePath, account, date, sum } = this.props.receipt;
     return (
       <div>
         <section id="receipt">
