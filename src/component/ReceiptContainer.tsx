@@ -5,6 +5,7 @@ import AccountSelector from "./AccountSelector";
 import DateSelector from "./DateSelector";
 
 import Receipt from "../domain/Receipt";
+import { MoveNextFactory } from "../usecase/MoveNext";
 
 interface ReceiptProps {
   receipt: Receipt;
@@ -26,6 +27,7 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
             <button id="register">登録</button>
           </div>
         </section>
+        <button onClick={() => MoveNextFactory.create().execute()}>Next</button>
       </div>
     );
   }
