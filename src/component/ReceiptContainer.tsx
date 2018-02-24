@@ -5,6 +5,7 @@ import AccountSelector from "./AccountSelector";
 import DateSelector from "./DateSelector";
 
 import Receipt from "../domain/Receipt";
+import { MovePrevFactory } from "../usecase/MovePrev";
 import { MoveNextFactory } from "../usecase/MoveNext";
 
 interface ReceiptProps {
@@ -22,12 +23,12 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
         <section id="input">
           <AccountSelector accounts={[]} />
           <DateSelector date={date} />
-          <input type="text" defaultValue={String(sum)} />
-          <div>
-            <button id="register">登録</button>
-          </div>
+          <input type="text" value={String(sum)} onChange={e => {}} />
         </section>
-        <button onClick={() => MoveNextFactory.create().execute()}>Next</button>
+        <section id="action">
+          <button onClick={() => MovePrevFactory.create().execute()}>Prev</button>
+          <button onClick={() => MoveNextFactory.create().execute()}>Next</button>
+        </section>
       </div>
     );
   }
