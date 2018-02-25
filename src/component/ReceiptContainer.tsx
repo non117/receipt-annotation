@@ -7,6 +7,7 @@ import DateSelector from "./DateSelector";
 import Receipt from "../domain/Receipt";
 import { MovePrevFactory } from "../usecase/MovePrev";
 import { MoveNextFactory } from "../usecase/MoveNext";
+import { UpdateSumFactory } from "../usecase/UpdateSum";
 
 interface ReceiptProps {
   receipt: Receipt;
@@ -15,6 +16,9 @@ interface ReceiptProps {
 export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
   render(): React.ReactNode {
     const { imagePath, account, date, sum } = this.props.receipt;
+    const sumChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      UpdateSumFactory.create().execute(e.target.value);
+    }
     return (
       <div>
         <section id="receipt">
@@ -23,7 +27,7 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
         <section id="input">
           <AccountSelector accounts={[]} />
           <DateSelector date={date} />
-          <input type="text" value={String(sum)} onChange={e => {}} />
+          <input type="text" value={String(sum)} onChange={sumChangeHandler} />
         </section>
         <section id="action">
           <button onClick={() => MovePrevFactory.create().execute()}>Prev</button>

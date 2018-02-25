@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import ReceiptList from "../domain/ReceiptList";
 import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
 

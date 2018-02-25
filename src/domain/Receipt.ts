@@ -2,7 +2,7 @@ import Account from "./Account";
 
 export interface ReceiptArgs {
   date: string;
-  sum: string;
+  sum: number;
   account: Account;
 }
 

@@ -13,7 +13,7 @@ export default class ReceiptDeserializer {
     return Object.assign(receipt, {
       imagePath: receiptJson.image_path,
       date: receiptJson.date,
-      sum: receiptJson.sum,
+      sum: receiptJson.sum || 0,
       shopName: receiptJson.shop_name,
     });
   }
