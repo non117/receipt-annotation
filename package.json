@@ -16,8 +16,9 @@
     "webpack-cli": "^2.0.9"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "yarn run build && yarn run electron ./dist/main.js"
+    "build-main": "tsc",
+    "build-renderer-dev": "yarn run webpack --mode development",
+    "start": "yarn run build-main && yarn run build-renderer-dev && yarn run electron ./dist/main.js"
   },
   "dependencies": {
     "moment": "^2.20.1",
