@@ -8,7 +8,12 @@
     "@types/react": "^16.0.31",
     "@types/react-dates": "^16.0.5",
     "@types/react-dom": "^16.0.3",
-    "electron": "^1.7.10"
+    "electron": "^1.7.10",
+    "ts-loader": "^4.0.0",
+    "css-loader": "^0.28.10",
+    "typescript": "^2.7.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9"
   },
   "scripts": {
     "build": "tsc",
