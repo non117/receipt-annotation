@@ -6,7 +6,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^16.0.31",
-    "@types/react-dates": "^16.0.5",
+    "@types/react-datepicker": "^1.1.2",
     "@types/react-dom": "^16.0.3",
     "css-loader": "^0.28.10",
     "electron": "^1.7.10",
@@ -24,7 +24,7 @@
   "dependencies": {
     "moment": "^2.20.1",
     "react": "^16.2.0",
-    "react-dates": "^16.3.4",
+    "react-datepicker": "^1.2.1",
     "react-dom": "^16.2.0"
   }
 }
