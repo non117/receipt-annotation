@@ -15,5 +15,5 @@ receiptRepository.onChange( () => {
   );
 });
 
-const jsonPath = "/Users/non/Desktop/output/receipts.json";
+const jsonPath = "/Users/non/Desktop/output/receipts2.json";
 LoadReceiptFactory.create().execute(jsonPath);
