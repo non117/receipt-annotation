@@ -133,10 +133,10 @@ class Receipt
 
   def to_h
     {
-      image_path: @image_path,
+      imagePath: @image_path,
       date: date,
       sum: sum,
-      shop_name: shop_name,
+      shopName: shop_name,
     }
   end
 

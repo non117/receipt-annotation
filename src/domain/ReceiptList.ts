@@ -1,4 +1,4 @@
-import Receipt, { ReceiptArgs } from "./Receipt";
+import Receipt from "./Receipt";
 
 export default class ReceiptList {
   private _receipts: Array<Receipt>;
@@ -29,7 +29,7 @@ export default class ReceiptList {
     if (this.canMovePrev()) this.currentIndex--;
   }
 
-  updateReceipt(updated: Partial<ReceiptArgs>) {
+  updateReceipt(updated: Partial<Receipt>) {
     const newReceipt = this.getCurrent().updateReceipt(updated);
     this._receipts[this.currentIndex] = newReceipt;
   }
