@@ -19,6 +19,7 @@
   "scripts": {
     "build-main": "tsc",
     "build-renderer-dev": "yarn run webpack --mode development",
+    "watch": "yarn run webpack --mode development --watch",
     "start": "yarn run build-main && yarn run build-renderer-dev && yarn run electron ./dist/main.js"
   },
   "dependencies": {
