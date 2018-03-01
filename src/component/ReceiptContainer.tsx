@@ -21,18 +21,24 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
     }
     return (
       <div>
-        <section id="receipt">
-          <ReceiptImage imagePath={imagePath} />
-        </section>
-        <section id="input">
-          <AccountSelector accounts={[]} />
-          <DateSelector date={date} />
-          <input type="text" value={String(sum)} onChange={sumChangeHandler} />
-        </section>
-        <section id="action">
-          <button onClick={() => MovePrevFactory.create().execute()}>Prev</button>
-          <button onClick={() => MoveNextFactory.create().execute()}>Next</button>
-        </section>
+        <h1 id="title">Receipt Annotator</h1>
+        <div id="container">
+          <section id="receipt">
+            <ReceiptImage imagePath={imagePath} />
+          </section>
+          <div id="input-and-action">
+            <section id="input">
+              <AccountSelector accounts={[]} />
+              <DateSelector date={date} />
+              <label>Price</label>
+              <input type="text" value={String(sum)} onChange={sumChangeHandler} />
+            </section>
+            <section id="action">
+              <button className="button-action" onClick={() => MovePrevFactory.create().execute()}>Prev</button>
+              <button className="button-action" onClick={() => MoveNextFactory.create().execute()}>Next</button>
+            </section>
+          </div>
+        </div>
       </div>
     );
   }
