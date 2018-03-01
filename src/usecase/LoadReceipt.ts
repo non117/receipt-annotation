@@ -1,7 +1,7 @@
-import * as fs from "fs";
+import Receipt from "../domain/Receipt";
 import ReceiptList from "../domain/ReceiptList";
 import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
-import ReceiptDeserializer from "../infrastructure/ReceiptDeserializer";
+import { JSONReader } from "../infrastructure/JsonFs";
 
 export class LoadReceiptFactory {
   static create() {
@@ -17,8 +17,18 @@ export class LoadReceipt {
   }
 
   execute(jsonPath: string) {
-    const rawJson = fs.readFileSync(jsonPath).toString();
-    const receipts = ReceiptDeserializer.deserializeFromString(rawJson);
+    const rawJson = JSONReader.execute(jsonPath);
+    const receipts = this.deserializeFromString(rawJson);
     this.receiptRepository.set(new ReceiptList(receipts));
+  }
+
+  private deserializeFromString(rawJson: string): Array<Receipt> {
+    return JSON.parse(rawJson, (key: string, value: any) => {
+      if (value instanceof Array) {
+        return value.map(receipt => new Receipt(receipt));
+      } else {
+        return value;
+      }
+    });
   }
 }
