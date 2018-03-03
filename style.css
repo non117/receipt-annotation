@@ -17,9 +17,9 @@
 }
 #input-and-action {
   flex: 0.5;
-  width: 200px;
+  width: 220px;
   padding: 0% 2%;
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -27,14 +27,34 @@
 #input-and-action select
 {
   font-size: inherit;
-  margin: 10px 0px;
+  margin: 5px 0px 0px 10px;
   width: 180px;
 }
 
 #input-and-action label:not(first-child)
 {
   display: block;
-  margin-top: 10px;
+  margin: 10px 0px 0px 10px;
+  color: #444;
+}
+
+#input-and-action #price
+{
+  background-color: seashell;
+}
+
+#input-and-action #label-price
+{
+  font-weight: bold;
+  margin-top: 30px;
+  padding: 10px 0px 0px 0px;
+  color: black;
+
+}
+
+#input-and-action #input-price
+{
+  margin:  10px 10px 50px 10px;
 }
 
 #input-and-action button.button-action{
@@ -53,6 +73,19 @@
 #container {
   display: flex;
   justify-content: center;
+  width: inherit;
+  margin: inherit;
+}
+
+div#wrapper{
   width: 800px;
   margin: 0px auto;
+}
+
+#wrapper #button-save {
+  margin: 30px auto;
+  display: block;
+  width: 200px;
+  font-size: 18px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

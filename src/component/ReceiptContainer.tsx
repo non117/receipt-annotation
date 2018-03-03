@@ -20,8 +20,9 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
       UpdateSumFactory.create().execute(e.target.value);
     }
     return (
-      <div>
+      <div id="wrapper">
         <h1 id="title">Receipt Annotator</h1>
+        <button id="button-save" onClick={() => {}}>Save</button>
         <div id="container">
           <section id="receipt">
             <ReceiptImage imagePath={imagePath} />
@@ -30,8 +31,10 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
             <section id="input">
               <AccountSelector accounts={[]} />
               <DateSelector date={date} />
-              <label>Price</label>
-              <input type="text" value={String(sum)} onChange={sumChangeHandler} />
+              <div id="price">
+                <label id="label-price">Price</label>
+                <input type="text" value={String(sum)} onChange={sumChangeHandler} id="input-price" />
+              </div>
             </section>
             <section id="action">
               <button className="button-action" onClick={() => MovePrevFactory.create().execute()}>Prev</button>
