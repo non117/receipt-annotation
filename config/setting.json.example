@@ -1,0 +1,6 @@
+{
+  "receiptImageDirectory": "full path of receipt image directory",
+  "annotatedJsonPath": "intermediate annotated receipt json",
+  "receiptJsonPath": "output receipt json",
+  "apiKey": "gcp api key"
+}
