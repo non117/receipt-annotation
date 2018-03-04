@@ -17,6 +17,6 @@ receiptRepository.onChange( () => {
   );
 });
 
-const settingPath = path.join(path.basename(__dirname), "config/setting.json");
+const settingPath = "./config/setting.json";
 LoadSettingFactory.create().execute(settingPath);
 LoadReceiptFactory.create().execute();
