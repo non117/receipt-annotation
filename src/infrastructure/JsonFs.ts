@@ -9,6 +9,7 @@ export class JSONReader {
 
 export class JSONWriter {
   static execute(jsonPath: string, content: string) {
-    // TODO
+    fs.writeFileSync(jsonPath, content);
+    // TODO error handling
   }
 }

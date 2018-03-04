@@ -7,6 +7,7 @@ import DateSelector from "./DateSelector";
 import Receipt from "../domain/Receipt";
 import { MovePrevFactory } from "../usecase/MovePrev";
 import { MoveNextFactory } from "../usecase/MoveNext";
+import { ExportReceiptFactory } from "../usecase/ExportReceipt";
 import { UpdateSumFactory } from "../usecase/UpdateSum";
 
 interface ReceiptProps {
@@ -22,7 +23,7 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
     return (
       <div id="wrapper">
         <h1 id="title">Receipt Annotator</h1>
-        <button id="button-save" onClick={() => {}}>Save</button>
+        <button id="button-save" onClick={() => ExportReceiptFactory.create().execute()}>Save</button>
         <div id="container">
           <section id="receipt">
             <ReceiptImage imagePath={imagePath} />
