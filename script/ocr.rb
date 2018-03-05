@@ -2,7 +2,6 @@ require 'base64'
 require 'faraday'
 require 'json'
 require 'time'
-require 'yaml'
 
 class OCR
   HOST = 'https://vision.googleapis.com'.freeze
@@ -171,16 +170,15 @@ def construct_lines(text_annotations)
   lines.uniq(&:text)
 end
 
-SETTINGS_FILE_PATH = './settings.yml'
-OUTPUT_FILENAME = 'receipts.json'
-DEBUG_FILENAME = 'debug_annotations.json'
+SETTINGS_FILE_PATH = '../config/settings.json'
+DEBUG_FILE_PATH = './debug.json'
 
 def main()
-  settings = YAML.load(File.read(SETTINGS_FILE_PATH))
-  receipt_image_directory = settings.dig('receipt_image_directory')
-  output_directory = settings.dig('output_directory')
+  settings = JSON.load(File.read(SETTINGS_FILE_PATH))
+  receipt_image_directory = settings.dig('receiptImageDirectory')
+  output_path = settings.dig('annotatedJsonPath')
   receipt_images = Dir.glob(File.join(receipt_image_directory, '*'))
-  ocr = OCR.new(settings.dig('api_key'))
+  ocr = OCR.new(settings.dig('apiKey'))
   original_annotations = []
   receipts = receipt_images.map do |image|
     receipt = Receipt.new(image, ocr).annotate!
@@ -188,13 +186,13 @@ def main()
     original_annotations << receipt.annotated_receipt
     receipt.to_h
   end
-  File.write(File.join(output_directory, DEBUG_FILENAME), original_annotations.to_json)
-  File.write(File.join(output_directory, OUTPUT_FILENAME), receipts.to_json)
+  File.write(DEBUG_FILE_PATH, original_annotations.to_json)
+  File.write(output_path, receipts.to_json)
 rescue e
   puts e
   puts e.backtrace.join "\n"
   puts original_annotations.last
-  File.write(File.join(output_directory, DEBUG_FILENAME), original_annotations.to_json)
+  File.write(DEBUG_FILE_PATH, original_annotations.to_json)
 end
 
 main
