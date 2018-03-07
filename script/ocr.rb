@@ -81,9 +81,10 @@ class Line
   DATE_PATTERN = /(20\d\d-\d\d?-\d\d?)|(20\d\d年\d\d?月\d\d?日)/
   SUM_PATTERN = /合計/
   REPLACE_DATE_SYMBOLS = ['年', '月', '日']
-  attr_reader :text
+  attr_reader :text, :max_width
   def initialize(texts)
     @text = texts.map(&:text).join
+    @max_width = texts.max_by(&:width)&.width.to_i
   end
 
   def date
@@ -151,7 +152,7 @@ class Receipt
   end
 
   def sum
-    @lines.map(&:sum).compact.first
+    @lines.select(&:sum).max_by(&:max_width)&.sum
   end
 
   def shop_name
