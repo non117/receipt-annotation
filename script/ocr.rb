@@ -51,11 +51,17 @@ class Text
   #     vertices: [{x: 123, y: 0}, {x: 234, y: 1}, {x: 345, y:2}, {x: 456, y:3}]
   #   }
   # }
-  attr_accessor :height, :position, :text, :x
+  attr_accessor :height, :width, :position, :text, :x
   def initialize(text_annotation)
     @text = text_annotation['description']
     rect = text_annotation.dig('boundingPoly', 'vertices')
     @height = rect[3]['y'] - rect[0]['y']
+    @width = 0
+    # ¥単体が入ってくると0 divisionになってしまうので除く
+    # CloudVisionの結果といえどnullが入ったへんなデータがある
+    if rect[0]['x'] && rect[1]['x'] && @text != "¥"
+      @width = (rect[1]['x'] - rect[0]['x']) / @text.delete("¥").size # ¥のフォントが小さすぎるので除外する
+    end
     @position = (rect[3]['y'] + rect[0]['y']) / 2
     @x = rect.map{ |v| v['x'] }.compact.min
   end
