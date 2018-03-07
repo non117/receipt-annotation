@@ -66,6 +66,10 @@ class Text
     @x = rect.map{ |v| v['x'] }.compact.min
   end
 
+  def to_s
+    "#{@width}, #{@text}"
+  end
+
   # 前後の文字列の位置誤差が、フォントの高さに収まっているなら同じ行とする
   def same_line?(other_text)
     min_height = [@height, other_text.height].min
@@ -85,6 +89,10 @@ class Line
   def initialize(texts)
     @text = texts.map(&:text).join
     @max_width = texts.max_by(&:width)&.width.to_i
+  end
+
+  def to_s
+    "#{@max_width}, #{@text}"
   end
 
   def date
