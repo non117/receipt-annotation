@@ -2,6 +2,7 @@ require 'base64'
 require 'faraday'
 require 'json'
 require 'time'
+require 'pathname'
 
 class OCR
   HOST = 'https://vision.googleapis.com'.freeze
@@ -185,11 +186,11 @@ def construct_lines(text_annotations)
   lines.uniq(&:text)
 end
 
-SETTINGS_FILE_PATH = '../config/settings.json'
-DEBUG_FILE_PATH = './debug.json'
+SETTINGS_FILE_PATH = Pathname.new(__FILE__).expand_path.basename / '../config/setting.json'
+DEBUG_FILE_PATH = Pathname.new(__FILE__).expand_path.basename / '../debug.json'
 
 def main()
-  settings = JSON.load(File.read(SETTINGS_FILE_PATH))
+  settings = JSON.load(SETTINGS_FILE_PATH.read)
   receipt_image_directory = settings.dig('receiptImageDirectory')
   output_path = settings.dig('annotatedJsonPath')
   receipt_images = Dir.glob(File.join(receipt_image_directory, '*'))
