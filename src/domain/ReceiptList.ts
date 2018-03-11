@@ -3,9 +3,11 @@ import Receipt from "./Receipt";
 export default class ReceiptList {
   private _receipts: Array<Receipt>;
   currentIndex: number;
+  length: number;
 
   constructor(receipts: Array<Receipt>) {
     this._receipts = receipts;
+    this.length = receipts.length;
     this.currentIndex = 0;
   }
 

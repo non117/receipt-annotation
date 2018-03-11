@@ -10,9 +10,13 @@ import receiptListRepository from "./infrastructure/ReceiptListRepository";
 moment.locale("ja");
 
 receiptListRepository.onChange( () => { 
-  const receipt = receiptListRepository.get().getCurrent();
+  const receiptList = receiptListRepository.get();
   ReactDOM.render(
-    <ReceiptContainer receipt={receipt} />, document.getElementById("app")
+    <ReceiptContainer
+      receipt={receiptList.getCurrent()}
+      index={receiptList.currentIndex}
+      max={receiptList.length}
+    />, document.getElementById("app")
   );
 });
 
