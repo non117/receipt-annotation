@@ -6,4 +6,12 @@ export default class AccountList {
   constructor(accounts: Array<Account>) {
     this._accounts = accounts;
   }
+
+  filterDebit(): Array<Account> {
+    return this._accounts.filter(account => account.isDebit());
+  }
+
+  filterCredit(): Array<Account> {
+    return this._accounts.filter(account => account.isCredit());
+  }
 }

@@ -16,7 +16,7 @@ interface ReceiptProps {
 
 export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
   render(): React.ReactNode {
-    const { imagePath, account, date, sum } = this.props.receipt;
+    const { imagePath, debitAccount, creditAccount, date, sum } = this.props.receipt;
     const sumChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       UpdateSumFactory.create().execute(e.target.value);
     }

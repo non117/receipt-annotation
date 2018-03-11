@@ -13,7 +13,8 @@ export default class Receipt {
   date: moment.Moment;
   sum: number;
   shopName: string;
-  account: Account;
+  debitAccount: Account;
+  creditAccount: Account;
   static DATE_FORMAT = "YYYY-MM-DD HH:mm Z";
 
   constructor(receipt: ReceiptObject) {
