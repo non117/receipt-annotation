@@ -1,6 +1,7 @@
 import * as React from "react";
 import Account from "../domain/Account";
 import accountListRepository from "../infrastructure/AccountListRepository";
+import { SelectCreditAccountFactory } from "../usecase/SelectCreditAccount";
 
 interface CreditAccountSelectorProps { creditAccount: Account }
 
@@ -14,7 +15,8 @@ export default class CreditAccountSelector extends React.PureComponent<CreditAcc
     return (
       <div>
         <label>決済手段</label>
-        <select value={selected}>
+        <select value={selected}
+          onChange={e => SelectCreditAccountFactory.create().execute(e.target.value)}>
           {creditAccountOptions}
         </select>
       </div>

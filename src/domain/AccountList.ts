@@ -14,4 +14,8 @@ export default class AccountList {
   filterCredit(): Array<Account> {
     return this._accounts.filter(account => account.isCredit());
   }
+
+  findByFullName(fullName: string) {
+    return this._accounts.find(account => account.fullName === fullName);
+  }
 }

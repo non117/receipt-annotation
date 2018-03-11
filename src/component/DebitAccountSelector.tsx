@@ -1,6 +1,7 @@
 import * as React from "react";
 import Account from "../domain/Account";
 import accountListRepository from "../infrastructure/AccountListRepository";
+import { SelectDebitAccountFactory } from "../usecase/SelectDebitAccount";
 
 interface DebitAccountSelectorProps { debitAccount: Account }
 
@@ -14,7 +15,8 @@ export default class DebitAccountSelector extends React.PureComponent<DebitAccou
     return (
       <div>
         <label>勘定科目</label>
-        <select value={selected}>
+        <select value={selected}
+          onChange={e => SelectDebitAccountFactory.create().execute(e.target.value)}>
           {debitAccountOptions}
         </select>
       </div>

@@ -1,6 +1,7 @@
 import Account from "../domain/Account";
 import ReceiptList from "../domain/ReceiptList";
 import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
+import accountListRepository from "../infrastructure/AccountListRepository";
 
 export class SelectCreditAccountFactory {
   static create() {
@@ -15,9 +16,10 @@ export class SelectCreditAccount {
     this.receiptRepository = repository;
   }
 
-  execute(creditAccount: Account) {
+  execute(creditAccountFullName: string) {
+    const account = accountListRepository.get().findByFullName(creditAccountFullName);
     const receiptList = receiptRepository.get();
-    receiptList.updateReceipt({ creditAccount: creditAccount });
+    receiptList.updateReceipt({ creditAccount: account });
     receiptRepository.set(receiptList);
   }
 }
