@@ -13,7 +13,7 @@ export default class CreditAccountSelector extends React.PureComponent<CreditAcc
     );
     return (
       <div>
-        <label>Credit</label>
+        <label>決済手段</label>
         <select value={selected}>
           {creditAccountOptions}
         </select>

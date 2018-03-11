@@ -10,7 +10,7 @@ export default class DateSelector extends React.PureComponent<DateSelectorProps,
   render(): React.ReactNode {
     return (
       <div>
-        <label>Date</label>
+        <label>日付</label>
         <DatePicker
           selected={this.props.date}
           onChange={date => UpdateDateFactory.create().execute(date)}

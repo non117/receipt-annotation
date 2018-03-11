@@ -13,7 +13,7 @@ export default class DebitAccountSelector extends React.PureComponent<DebitAccou
     );
     return (
       <div>
-        <label>Debit</label>
+        <label>勘定科目</label>
         <select value={selected}>
           {debitAccountOptions}
         </select>

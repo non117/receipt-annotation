@@ -35,7 +35,7 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
               <CreditAccountSelector creditAccount={creditAccount} />
               <DateSelector date={date} />
               <div id="price">
-                <label id="label-price">Price</label>
+                <label id="label-price">合計</label>
                 <input type="text" value={String(sum)} onChange={sumChangeHandler} id="input-price" />
               </div>
             </section>
