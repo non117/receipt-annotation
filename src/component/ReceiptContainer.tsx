@@ -1,7 +1,8 @@
 import * as React from "react";
 
 import ReceiptImage from "./ReceiptImage";
-import AccountSelector from "./AccountSelector";
+import DebitAccountSelector from "./DebitAccountSelector";
+import CreditAccountSelector from "./CreditAccountSelector";
 import DateSelector from "./DateSelector";
 
 import Receipt from "../domain/Receipt";
@@ -30,7 +31,8 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
           </section>
           <div id="input-and-action">
             <section id="input">
-              <AccountSelector accounts={[]} />
+              <DebitAccountSelector debitAccount={debitAccount} />
+              <CreditAccountSelector creditAccount={creditAccount} />
               <DateSelector date={date} />
               <div id="price">
                 <label id="label-price">Price</label>
