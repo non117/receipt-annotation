@@ -6,6 +6,8 @@ export interface ReceiptObject {
   date: string;
   sum: number;
   shopName: string;
+  debitAccount: Account;
+  creditAccount: Account;
 }
 
 export default class Receipt {
@@ -21,6 +23,8 @@ export default class Receipt {
     this.imagePath = receipt.imagePath;
     this.date = receipt.date ? moment(receipt.date, Receipt.DATE_FORMAT) : moment();
     this.sum = receipt.sum || 0;
+    this.debitAccount = receipt.debitAccount;
+    this.creditAccount = receipt.creditAccount;
   }
 
   updateReceipt(updated: Partial<Receipt>): Receipt {
