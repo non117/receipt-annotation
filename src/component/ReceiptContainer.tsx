@@ -9,6 +9,7 @@ import Receipt from "../domain/Receipt";
 import { MovePrevFactory } from "../usecase/MovePrev";
 import { MoveNextFactory } from "../usecase/MoveNext";
 import { ExportReceiptFactory } from "../usecase/ExportReceipt";
+import { UpdateMemoFactory } from "../usecase/UpdateMemo";
 import { UpdateSumFactory } from "../usecase/UpdateSum";
 
 interface ReceiptProps {
@@ -17,10 +18,7 @@ interface ReceiptProps {
 
 export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
   render(): React.ReactNode {
-    const { imagePath, debitAccount, creditAccount, date, sum } = this.props.receipt;
-    const sumChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-      UpdateSumFactory.create().execute(e.target.value);
-    }
+    const { imagePath, debitAccount, creditAccount, date, memo, sum } = this.props.receipt;
     return (
       <div id="wrapper">
         <h1 id="title">Receipt Annotator</h1>
@@ -34,9 +32,14 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
               <DebitAccountSelector debitAccount={debitAccount} />
               <CreditAccountSelector creditAccount={creditAccount} />
               <DateSelector date={date} />
+              <div id="memo">
+                <label id="label-memo">メモ</label>
+                <input type="text" value={memo} onChange={e => UpdateMemoFactory.create().execute(e.target.value)} id="input-memo" />
+              </div>
               <div id="price">
                 <label id="label-price">合計</label>
-                <input type="text" value={String(sum)} onChange={sumChangeHandler} id="input-price" />
+                <input type="text" value={String(sum)}
+                  onChange={e => UpdateSumFactory.create().execute(e.target.value)} id="input-price" />
               </div>
             </section>
             <section id="action">

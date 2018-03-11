@@ -5,7 +5,7 @@ export interface ReceiptObject {
   imagePath: string;
   date: string;
   sum: number;
-  shopName: string;
+  memo: string;
   debitAccount: Account;
   creditAccount: Account;
 }
@@ -14,7 +14,7 @@ export default class Receipt {
   imagePath: string;
   date: moment.Moment;
   sum: number;
-  shopName: string;
+  memo: string;
   debitAccount: Account;
   creditAccount: Account;
   static DATE_FORMAT = "YYYY-MM-DD HH:mm Z";
@@ -23,6 +23,7 @@ export default class Receipt {
     this.imagePath = receipt.imagePath;
     this.date = receipt.date ? moment(receipt.date, Receipt.DATE_FORMAT) : moment();
     this.sum = receipt.sum || 0;
+    this.memo = receipt.memo;
     this.debitAccount = receipt.debitAccount;
     this.creditAccount = receipt.creditAccount;
   }
