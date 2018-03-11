@@ -1,22 +1,22 @@
 import ReceiptList from "../domain/ReceiptList";
-import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
+import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 
 export class MovePrevFactory {
   static create() {
-    return new MovePrev(receiptRepository);
+    return new MovePrev(receiptListRepository);
   }
 }
 
 export class MovePrev {
-  private receiptRepository: ReceiptRepository;
+  private receiptListRepository: ReceiptListRepository;
 
-  constructor(repository: ReceiptRepository) {
-    this.receiptRepository = repository;
+  constructor(receiptListRepository: ReceiptListRepository) {
+    this.receiptListRepository = receiptListRepository;
   }
 
   execute() {
-    const receiptList = receiptRepository.get();
+    const receiptList = this.receiptListRepository.get();
     receiptList.movePrev();
-    receiptRepository.set(receiptList);
+    this.receiptListRepository.set(receiptList);
   }
 }

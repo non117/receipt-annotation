@@ -1,23 +1,23 @@
 import * as moment from "moment";
 import ReceiptList from "../domain/ReceiptList";
-import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
+import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 
 export class UpdateDateFactory {
   static create() {
-    return new UpdateDate(receiptRepository);
+    return new UpdateDate(receiptListRepository);
   }
 }
 
 export class UpdateDate {
-  private receiptRepository: ReceiptRepository;
+  private receiptListRepository: ReceiptListRepository;
 
-  constructor(repository: ReceiptRepository) {
-    this.receiptRepository = repository;
+  constructor(receiptListRepository: ReceiptListRepository) {
+    this.receiptListRepository = receiptListRepository;
   }
 
   execute(date: moment.Moment) {
-    const receiptList = receiptRepository.get();
+    const receiptList = this.receiptListRepository.get();
     receiptList.updateReceipt({ date: date });
-    receiptRepository.set(receiptList);
+    this.receiptListRepository.set(receiptList);
   }
 }

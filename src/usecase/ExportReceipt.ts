@@ -1,26 +1,26 @@
 import ReceiptList from "../domain/ReceiptList";
-import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
+import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
 import { JSONWriter } from "../infrastructure/JsonFs";
 
 export class ExportReceiptFactory {
   static create() {
-    return new ExportReceipt(receiptRepository, settingRepository);
+    return new ExportReceipt(receiptListRepository, settingRepository);
   }
 }
 
 export class ExportReceipt {
-  private receiptRepository: ReceiptRepository;
+  private receiptListRepository: ReceiptListRepository;
   private settingRepository: SettingRepository;
 
-  constructor(receiptRepository: ReceiptRepository, settingRepository: SettingRepository) {
-    this.receiptRepository = receiptRepository;
+  constructor(receiptListRepository: ReceiptListRepository, settingRepository: SettingRepository) {
+    this.receiptListRepository = receiptListRepository;
     this.settingRepository = settingRepository;
   }
 
   execute() {
     const receiptJsonPath = this.settingRepository.get().receiptJsonPath;
-    const receiptList = this.receiptRepository.get();
+    const receiptList = this.receiptListRepository.get();
     const content = JSON.stringify(receiptList);
     JSONWriter.execute(receiptJsonPath, content);
   }

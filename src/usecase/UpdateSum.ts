@@ -1,25 +1,25 @@
 import ReceiptList from "../domain/ReceiptList";
-import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
+import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 
 export class UpdateSumFactory {
   static create() {
-    return new UpdateSum(receiptRepository);
+    return new UpdateSum(receiptListRepository);
   }
 }
 
 export class UpdateSum {
-  private receiptRepository: ReceiptRepository;
+  private receiptListRepository: ReceiptListRepository;
 
-  constructor(repository: ReceiptRepository) {
-    this.receiptRepository = repository;
+  constructor(receiptListRepository: ReceiptListRepository) {
+    this.receiptListRepository = receiptListRepository;
   }
 
   execute(sum: string) {
     const parsedSum = Number(sum);
     if (parsedSum !== NaN) {
-      const receiptList = receiptRepository.get();
+      const receiptList = this.receiptListRepository.get();
       receiptList.updateReceipt({ sum: parsedSum });
-      receiptRepository.set(receiptList);
+      this.receiptListRepository.set(receiptList);
     }
   }
 }

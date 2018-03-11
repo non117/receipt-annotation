@@ -7,12 +7,12 @@ import ReceiptContainer from "./component/ReceiptContainer";
 import { LoadReceiptListFactory } from "./usecase/LoadReceiptList";
 import { LoadSettingFactory } from "./usecase/LoadSetting";
 import { LoadAccountListFactory } from "./usecase/LoadAccountList";
-import receiptRepository from "./infrastructure/ReceiptRepository";
+import receiptListRepository from "./infrastructure/ReceiptListRepository";
 
 moment.locale("ja");
 
-receiptRepository.onChange( () => { 
-  const receipt = receiptRepository.get().getCurrent();
+receiptListRepository.onChange( () => { 
+  const receipt = receiptListRepository.get().getCurrent();
   ReactDOM.render(
     <ReceiptContainer receipt={receipt} />, document.getElementById("app")
   );

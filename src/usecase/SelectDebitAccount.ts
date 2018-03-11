@@ -1,25 +1,27 @@
 import Account from "../domain/Account";
 import ReceiptList from "../domain/ReceiptList";
-import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
-import accountListRepository from "../infrastructure/AccountListRepository";
+import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
+import accountListRepository, { AccountListRepository } from "../infrastructure/AccountListRepository";
 
 export class SelectDebitAccountFactory {
   static create() {
-    return new SelectDebitAccount(receiptRepository);
+    return new SelectDebitAccount(receiptListRepository, accountListRepository);
   }
 }
 
 export class SelectDebitAccount {
-  private receiptRepository: ReceiptRepository;
+  private receiptListRepository: ReceiptListRepository;
+  private accountListRepository: AccountListRepository;
 
-  constructor(repository: ReceiptRepository) {
-    this.receiptRepository = repository;
+  constructor(receiptListRepository: ReceiptListRepository, accountListRepository: AccountListRepository) {
+    this.receiptListRepository = receiptListRepository;
+    this.accountListRepository = accountListRepository;
   }
 
   execute(debitAccountFullName: string) {
-    const account = accountListRepository.get().findByFullName(debitAccountFullName);
-    const receiptList = receiptRepository.get();
+    const account = this.accountListRepository.get().findByFullName(debitAccountFullName);
+    const receiptList = this.receiptListRepository.get();
     receiptList.updateReceipt({ debitAccount: account });
-    receiptRepository.set(receiptList);
+    this.receiptListRepository.set(receiptList);
   }
 }

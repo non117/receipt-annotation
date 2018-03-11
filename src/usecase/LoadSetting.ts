@@ -11,8 +11,8 @@ export class LoadSettingFactory {
 export class LoadSetting {
   private settingRepository: SettingRepository;
 
-  constructor(repository: SettingRepository) {
-    this.settingRepository = repository;
+  constructor(settingRepository: SettingRepository) {
+    this.settingRepository = settingRepository;
   }
 
   execute(jsonPath: string) {

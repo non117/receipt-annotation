@@ -2,7 +2,7 @@ const REPOSITORY_CHANGE = "REPOSITORY_CHANGE";
 import { EventEmitter } from "events";
 import ReceiptList from "../domain/ReceiptList";
 
-export class ReceiptRepository extends EventEmitter {
+export class ReceiptListRepository extends EventEmitter {
   private list: ReceiptList
   constructor() {
     super();
@@ -24,4 +24,4 @@ export class ReceiptRepository extends EventEmitter {
 }
 
 // singleton
-export default new ReceiptRepository();
+export default new ReceiptListRepository();

@@ -1,21 +1,21 @@
 import Receipt, { ReceiptObject } from "../domain/Receipt";
 import ReceiptList from "../domain/ReceiptList";
-import receiptRepository, { ReceiptRepository } from "../infrastructure/ReceiptRepository";
+import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
 import { JSONReader } from "../infrastructure/JsonFs";
 
 export class LoadReceiptListFactory {
   static create() {
-    return new LoadReceiptList(receiptRepository, settingRepository);
+    return new LoadReceiptList(receiptListRepository, settingRepository);
   }
 }
 
 export class LoadReceiptList {
-  private receiptRepository: ReceiptRepository;
+  private receiptListRepository: ReceiptListRepository;
   private settingRepository: SettingRepository;
 
-  constructor(receiptRepository: ReceiptRepository, settingRepository: SettingRepository) {
-    this.receiptRepository = receiptRepository;
+  constructor(receiptListRepository: ReceiptListRepository, settingRepository: SettingRepository) {
+    this.receiptListRepository = receiptListRepository;
     this.settingRepository = settingRepository;
   }
 
@@ -25,6 +25,6 @@ export class LoadReceiptList {
     const receipts = JSON.parse(rawJson).map(
       (receipt: ReceiptObject) => new Receipt(receipt)
     )
-    this.receiptRepository.set(new ReceiptList(receipts));
+    this.receiptListRepository.set(new ReceiptList(receipts));
   }
 }

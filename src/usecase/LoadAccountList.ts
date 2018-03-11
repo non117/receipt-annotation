@@ -12,8 +12,8 @@ export class LoadAccountListFactory {
 export class LoadAccountList {
   private accountListRepository: AccountListRepository;
 
-  constructor(repository: AccountListRepository) {
-    this.accountListRepository = repository;
+  constructor(accountListRepository: AccountListRepository) {
+    this.accountListRepository = accountListRepository;
   }
 
   execute(jsonPath: string) {
