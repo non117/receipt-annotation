@@ -48,8 +48,20 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
               </div>
             </section>
             <section id="action">
-              <button className="button-action" onClick={() => MovePrevFactory.create().execute()}>Prev</button>
-              <button className="button-action" onClick={() => MoveNextFactory.create().execute()}>Next</button>
+              <button
+                className="button-action"
+                onClick={() => MoveNextFactory.create().execute()}
+                disabled={this.props.index === this.props.max}
+              >
+                Next
+              </button>
+              <button
+                className="button-action"
+                onClick={() => MovePrevFactory.create().execute()}
+                disabled={this.props.index === 0}
+               >
+                Prev
+              </button>
             </section>
           </div>
         </div>
