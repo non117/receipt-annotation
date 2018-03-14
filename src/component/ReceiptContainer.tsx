@@ -29,7 +29,7 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
           </section>
           <div id="input-and-action">
             <section id="info">
-              {this.props.index} / {this.props.max}
+              {this.props.index + 1} / {this.props.max + 1}
             </section>
             <section id="input">
               <DebitAccountSelector debitAccount={debitAccount} />
