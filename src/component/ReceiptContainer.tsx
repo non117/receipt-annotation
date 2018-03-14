@@ -6,8 +6,6 @@ import CreditAccountSelector from "./CreditAccountSelector";
 import DateSelector from "./DateSelector";
 
 import Receipt from "../domain/Receipt";
-import { MovePrevFactory } from "../usecase/MovePrev";
-import { MoveNextFactory } from "../usecase/MoveNext";
 import { ExportReceiptFactory } from "../usecase/ExportReceipt";
 import { UpdateMemoFactory } from "../usecase/UpdateMemo";
 import { UpdateSumFactory } from "../usecase/UpdateSum";
@@ -46,22 +44,6 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
                 <input type="text" value={String(sum)}
                   onChange={e => UpdateSumFactory.create().execute(e.target.value)} id="input-price" />
               </div>
-            </section>
-            <section id="action">
-              <button
-                className="button-action"
-                onClick={() => MoveNextFactory.create().execute()}
-                disabled={this.props.index === this.props.max}
-              >
-                Next
-              </button>
-              <button
-                className="button-action"
-                onClick={() => MovePrevFactory.create().execute()}
-                disabled={this.props.index === 0}
-               >
-                Prev
-              </button>
             </section>
           </div>
         </div>
