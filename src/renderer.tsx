@@ -5,6 +5,7 @@ import ReceiptContainer from "./component/ReceiptContainer";
 import { LoadReceiptListFactory } from "./usecase/LoadReceiptList";
 import { LoadSettingFactory } from "./usecase/LoadSetting";
 import { LoadAccountListFactory } from "./usecase/LoadAccountList";
+import { RegisterKeyEventFactory } from "./usecase/RegisterKeyEvent";
 import receiptListRepository from "./infrastructure/ReceiptListRepository";
 
 moment.locale("ja");
@@ -25,3 +26,4 @@ const accountsPath = "./config/accounts.json";
 LoadSettingFactory.create().execute(settingsPath);
 LoadAccountListFactory.create().execute(accountsPath);
 LoadReceiptListFactory.create().execute();
+RegisterKeyEventFactory.create().execute();

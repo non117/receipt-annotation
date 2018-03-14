@@ -3,6 +3,8 @@ interface SettingObject {
   annotatedJsonPath: string;
   defaultCreditAccount: string;
   defaultDebitAccount: string;
+  moveNextKey: string;
+  movePrevKey: string;
 }
 
 export default class Setting {
@@ -10,11 +12,10 @@ export default class Setting {
   annotatedJsonPath: string;
   defaultCreditAccount: string;
   defaultDebitAccount: string;
+  moveNextKey: string;
+  movePrevKey: string;
 
   constructor(setting: SettingObject) {
-    this.receiptJsonPath = setting.receiptJsonPath;
-    this.annotatedJsonPath = setting.annotatedJsonPath;
-    this.defaultCreditAccount = setting.defaultCreditAccount;
-    this.defaultDebitAccount = setting.defaultDebitAccount;
+    Object.assign(this, setting);
   }
 }
