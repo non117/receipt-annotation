@@ -5,20 +5,22 @@ import { MovePrevFactory } from "./MovePrev";
 
 export class RegisterKeyEventFactory {
   static create() {
-    return new RegisterKeyEvent(settingRepository);
+    return new RegisterKeyEvent(settingRepository, window);
   }
 }
 
 export class RegisterKeyEvent {
   private settingRepository: SettingRepository;
+  private window: Window;
 
-  constructor(settingRepository: SettingRepository) {
+  constructor(settingRepository: SettingRepository, window: Window) {
     this.settingRepository = settingRepository;
+    this.window = window;
   }
 
   execute() {
     const setting = this.settingRepository.get();
-    window.addEventListener("keyup", e => {
+    this.window.addEventListener("keyup", e => {
       if((e.target as HTMLElement).tagName !== "INPUT") {
         if(e.key === setting.moveNextKey) {
           MoveNextFactory.create().execute(); 
