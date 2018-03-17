@@ -151,7 +151,7 @@ class Receipt
       imagePath: @image_path,
       date: date,
       sum: sum,
-      shopName: shop_name,
+      memo: shop_name,
     }
   end
 
