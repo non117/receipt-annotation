@@ -11,6 +11,10 @@ export default class ReceiptList {
     this.currentIndex = 0;
   }
 
+  getUsable(): Array<Receipt> {
+    return this._receipts; // FIXME
+  }
+
   getCurrent(): Receipt {
     return this._receipts[this.currentIndex];
   }
