@@ -1,10 +1,9 @@
 import Account, { AccountType } from "../domain/Account";
 import Receipt from "../domain/Receipt";
-import ReceiptList from "../domain/ReceiptList";
 
 export default class ReceiptQifConverter {
-  static execute(receiptList: ReceiptList): string {
-    const accountReceiptMap = receiptList.getUsable().reduce((acc: Map<Account, Receipt[]>, receipt: Receipt) => {
+  static execute(receipts: Array<Receipt>): string {
+    const accountReceiptMap = receipts.reduce((acc: Map<Account, Receipt[]>, receipt: Receipt) => {
         const sameAccountReceipts = acc.get(receipt.creditAccount) || [];
         return acc.set(receipt.creditAccount, [...sameAccountReceipts, receipt]);
       },
