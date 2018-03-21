@@ -20,18 +20,18 @@ export default class ReceiptQifConverter {
   }
   static convertAccount(account: Account): string {
     return `!Account
-      N${account.fullName}
-      ^
-      !Type:${qifAccountType(account.type)}
-      `;
+N${account.fullName}
+^
+!Type:${qifAccountType(account.type)}
+`;
   }
   static convertReceipt(receipt: Receipt): string {
     return `D${receipt.date.format("L")}
-      T-${receipt.sum}
-      M${receipt.memo}
-      L${receipt.debitAccount.fullName}
-      ^
-      `;
+T-${receipt.sum}
+M${receipt.memo}
+L${receipt.debitAccount.fullName}
+^
+`;
   }
 }
 
