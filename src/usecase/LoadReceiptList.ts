@@ -3,7 +3,7 @@ import ReceiptList from "../domain/ReceiptList";
 import accountListRepository, { AccountListRepository } from "../infrastructure/AccountListRepository";
 import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
-import { JSONReader } from "../infrastructure/JsonFs";
+import { Reader } from "../infrastructure/FileIO";
 
 export class LoadReceiptListFactory {
   static create() {
@@ -29,7 +29,7 @@ export class LoadReceiptList {
       debitAccount: accountList.findByFullName(setting.defaultDebitAccount),
       creditAccount: accountList.findByFullName(setting.defaultCreditAccount),
     };
-    const rawJson = JSONReader.execute(setting.annotatedJsonPath);
+    const rawJson = Reader.execute(setting.annotatedJsonPath);
     const receipts = <Receipt[]>JSON.parse(rawJson).map(
       (receipt: ReceiptObject) => new Receipt(Object.assign(receipt, defaultAccounts))
     )

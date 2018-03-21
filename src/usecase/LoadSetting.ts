@@ -1,6 +1,6 @@
 import Setting from "../domain/Setting";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
-import { JSONReader } from "../infrastructure/JsonFs";
+import { Reader } from "../infrastructure/FileIO";
 
 export class LoadSettingFactory {
   static create() {
@@ -16,7 +16,7 @@ export class LoadSetting {
   }
 
   execute(jsonPath: string) {
-    const rawJson = JSONReader.execute(jsonPath);
+    const rawJson = Reader.execute(jsonPath);
     const setting = new Setting(JSON.parse(rawJson));
     this.settingRepository.set(setting);
   }

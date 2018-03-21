@@ -1,7 +1,7 @@
 import Account, { AccountObject } from "../domain/Account";
 import AccountList from "../domain/AccountList";
 import accountListRepository, { AccountListRepository } from "../infrastructure/AccountListRepository";
-import { JSONReader } from "../infrastructure/JsonFs";
+import { Reader } from "../infrastructure/FileIO";
 
 export class LoadAccountListFactory {
   static create() {
@@ -17,7 +17,7 @@ export class LoadAccountList {
   }
 
   execute(jsonPath: string) {
-    const rawJson = JSONReader.execute(jsonPath);
+    const rawJson = Reader.execute(jsonPath);
     const accounts = JSON.parse(rawJson).map(
       (account: AccountObject) => new Account(account)
     );
