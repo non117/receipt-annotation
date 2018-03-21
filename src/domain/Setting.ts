@@ -1,6 +1,7 @@
 interface SettingObject {
-  receiptJsonPath: string;
   annotatedJsonPath: string;
+  outputDirectory: string;
+  outputFormat: string;
   defaultCreditAccount: string;
   defaultDebitAccount: string;
   moveNextKey: string;
@@ -8,8 +9,9 @@ interface SettingObject {
 }
 
 export default class Setting {
-  receiptJsonPath: string;
   annotatedJsonPath: string;
+  outputDirectory: string;
+  outputFormat: string;
   defaultCreditAccount: string;
   defaultDebitAccount: string;
   moveNextKey: string;
@@ -17,5 +19,9 @@ export default class Setting {
 
   constructor(setting: SettingObject) {
     Object.assign(this, setting);
+  }
+
+  outputExtension(): string {
+    return `.${this.outputFormat}`; // FIXME
   }
 }

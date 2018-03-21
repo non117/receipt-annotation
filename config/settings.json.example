@@ -1,7 +1,8 @@
 {
   "receiptImageDirectory": "full path of receipt image directory",
   "annotatedJsonPath": "intermediate annotated receipt json",
-  "receiptJsonPath": "output receipt json",
+  "outputDirectory": "output receipt directory",
+  "outputFormat": "qif",
   "apiKey": "gcp api key",
   "defaultCreditAccount": "資産:流動資産:現金",
   "defaultDebitAccount": "費用:生活:食費",
