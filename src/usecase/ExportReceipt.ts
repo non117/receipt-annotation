@@ -1,7 +1,8 @@
 import ReceiptList from "../domain/ReceiptList";
 import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
-import { JSONWriter } from "../infrastructure/JsonFs";
+import { Writer } from "../infrastructure/FileIO";
+import ReceiptQifConverter from "../infrastructure/ReceiptQifConverter";
 
 export class ExportReceiptFactory {
   static create() {
@@ -19,9 +20,10 @@ export class ExportReceipt {
   }
 
   execute() {
-    const receiptJsonPath = this.settingRepository.get().receiptJsonPath;
+    const setting = this.settingRepository.get();
     const receiptList = this.receiptListRepository.get();
-    const content = JSON.stringify(receiptList);
-    JSONWriter.execute(receiptJsonPath, content);
+    const content = ReceiptQifConverter.execute(receiptList.getUsable());
+    //const content = JSON.stringify(receiptList); // FIXME
+    Writer.execute(`${setting.outputDirectory}/receipts${setting.outputExtension()}`, content);
   }
 }
