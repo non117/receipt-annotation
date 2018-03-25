@@ -7,5 +7,9 @@
   "defaultCreditAccount": "資産:流動資産:現金",
   "defaultDebitAccount": "費用:生活:食費",
   "moveNextKey": "ArrowRight",
-  "movePrevKey": "ArrowLeft"
+  "movePrevKey": "ArrowLeft",
+  "keywords: {
+    "セブン-イレブン": "負債:クレジットカード",
+    "Family Mart": "負債:クレジットカード"
+  }
 }

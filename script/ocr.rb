@@ -109,8 +109,8 @@ class Line
     end
   end
 
-  # 店の名前を過去の事例から推定する
-  def shop_name(shop_name_db)
+  def memo(keywords)
+    @text if keywords.include? @text
   end
 
   private
@@ -132,16 +132,15 @@ end
 
 class Receipt
   attr_reader :annotated_receipt
-  def initialize(image_path, ocr_client)
+  def initialize(image_path, ocr_client, keywords)
     @image_path = image_path
     @ocr_client = ocr_client
-    @shop_name_db = []
+    @keywords = keywords
   end
 
   def annotate!
     image_bin = Base64.strict_encode64(File.binread(@image_path))
     @annotated_receipt = @ocr_client.call(image_bin)
-    p @annotated_receipt["error"]
     @lines = construct_lines(@annotated_receipt.dig('responses', 0, 'textAnnotations')[1..-1]) # 0番目は全テキストくっつけたやつ
     self
   end
@@ -151,7 +150,7 @@ class Receipt
       imagePath: @image_path,
       date: date,
       sum: sum,
-      memo: shop_name,
+      memo: memo,
     }
   end
 
@@ -164,8 +163,8 @@ class Receipt
     @lines.select(&:sum).max_by(&:max_width)&.sum
   end
 
-  def shop_name
-    @lines.map{ |line| line.shop_name(@shop_name_db) }.compact.first
+  def memo
+    @lines.map{ |line| line.memo(@keywords) }.compact.first
   end
 end
 
@@ -186,25 +185,26 @@ def construct_lines(text_annotations)
   lines.uniq(&:text)
 end
 
-SETTINGS_FILE_PATH = Pathname.new(__FILE__).expand_path.basename / '../config/setting.json'
+SETTINGS_FILE_PATH = Pathname.new(__FILE__).expand_path.basename / '../config/settings.json'
 DEBUG_FILE_PATH = Pathname.new(__FILE__).expand_path.basename / '../debug.json'
 
 def main()
   settings = JSON.load(SETTINGS_FILE_PATH.read)
   receipt_image_directory = settings.dig('receiptImageDirectory')
   output_path = settings.dig('annotatedJsonPath')
+  keywords = settings.dig('keywords')
   receipt_images = Dir.glob(File.join(receipt_image_directory, '*'))
   ocr = OCR.new(settings.dig('apiKey'))
   original_annotations = []
   receipts = receipt_images.map do |image|
-    receipt = Receipt.new(image, ocr).annotate!
+    receipt = Receipt.new(image, ocr, keywords).annotate!
     puts receipt.to_h
     original_annotations << receipt.annotated_receipt
     receipt.to_h
   end
   File.write(DEBUG_FILE_PATH, original_annotations.to_json)
   File.write(output_path, receipts.to_json)
-rescue e
+rescue => e
   puts e
   puts e.backtrace.join "\n"
   puts original_annotations.last
