@@ -16,7 +16,7 @@ receiptListRepository.onChange( () => {
     <ReceiptContainer
       receipt={receiptList.getCurrent()}
       index={receiptList.currentIndex}
-      max={receiptList.length}
+      length={receiptList.length}
     />, document.getElementById("app")
   );
 });

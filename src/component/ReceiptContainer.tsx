@@ -13,7 +13,7 @@ import { UpdateSumFactory } from "../usecase/UpdateSum";
 interface ReceiptProps {
   receipt: Receipt;
   index: number;
-  max: number;
+  length: number;
 }
 
 export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
@@ -29,7 +29,7 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
           </section>
           <div id="input-and-action">
             <section id="info">
-              {this.props.index + 1} / {this.props.max + 1}
+              {this.props.index + 1} / {this.props.length}
             </section>
             <section id="input">
               <DebitAccountSelector debitAccount={debitAccount} />
