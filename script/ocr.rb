@@ -1,6 +1,7 @@
 require 'base64'
 require 'faraday'
 require 'json'
+require 'levenshtein'
 require 'time'
 require 'pathname'
 
@@ -110,7 +111,7 @@ class Line
   end
 
   def memo(keywords)
-    @text if keywords.include? @text
+    keywords.select { |keyword| Levenshtein.normalized_distance(keyword, @text) < 0.4 }.first
   end
 
   private
@@ -192,7 +193,7 @@ def main()
   settings = JSON.load(SETTINGS_FILE_PATH.read)
   receipt_image_directory = settings.dig('receiptImageDirectory')
   output_path = settings.dig('annotatedJsonPath')
-  keywords = settings.dig('keywords')
+  keywords = settings.dig('keywords').keys
   receipt_images = Dir.glob(File.join(receipt_image_directory, '*'))
   ocr = OCR.new(settings.dig('apiKey'))
   original_annotations = []
