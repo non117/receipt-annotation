@@ -25,14 +25,16 @@ export class LoadReceiptList {
   execute() {
     const setting = this.settingRepository.get();
     const accountList = this.accountListRepository.get();
-    const defaultAccounts = {
-      debitAccount: accountList.findByFullName(setting.defaultDebitAccount),
-      creditAccount: accountList.findByFullName(setting.defaultCreditAccount),
-    };
+    const defaultDebitAccount = accountList.findByFullName(setting.defaultDebitAccount);
+    const defaultCreditAccount = accountList.findByFullName(setting.defaultCreditAccount);
     const rawJson = Reader.execute(setting.annotatedJsonPath);
-    const receipts = <Receipt[]>JSON.parse(rawJson).map(
-      (receipt: ReceiptObject) => new Receipt(Object.assign(receipt, defaultAccounts))
-    )
+    const receipts = <Receipt[]>JSON.parse(rawJson).map((receipt: ReceiptObject) => {
+      const accounts = {
+        debitAccount: defaultDebitAccount,
+        creditAccount: accountList.findByFullName(setting.keywords[receipt.memo]) || defaultCreditAccount,
+      };
+      return new Receipt(Object.assign(receipt, accounts));
+    });
     this.receiptListRepository.set(new ReceiptList(receipts));
   }
 }

@@ -6,6 +6,7 @@ interface SettingObject {
   defaultDebitAccount: string;
   moveNextKey: string;
   movePrevKey: string;
+  keywords: { [key: string]: string };
 }
 
 export default class Setting {
@@ -16,6 +17,7 @@ export default class Setting {
   defaultDebitAccount: string;
   moveNextKey: string;
   movePrevKey: string;
+  keywords: { [key: string]: string };
 
   constructor(setting: SettingObject) {
     Object.assign(this, setting);
