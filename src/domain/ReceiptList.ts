@@ -12,7 +12,7 @@ export default class ReceiptList {
   }
 
   getUsable(): Array<Receipt> {
-    return this._receipts; // FIXME
+    return this._receipts.filter(r => !r.ignored);
   }
 
   getCurrent(): Receipt {

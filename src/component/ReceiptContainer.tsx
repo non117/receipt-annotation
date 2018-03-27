@@ -9,6 +9,7 @@ import Receipt from "../domain/Receipt";
 import { ExportReceiptFactory } from "../usecase/ExportReceipt";
 import { UpdateMemoFactory } from "../usecase/UpdateMemo";
 import { UpdateSumFactory } from "../usecase/UpdateSum";
+import { UpdateIgnoredFactory } from "../usecase/UpdateIgnored";
 
 interface ReceiptProps {
   receipt: Receipt;
@@ -18,7 +19,7 @@ interface ReceiptProps {
 
 export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
   render(): React.ReactNode {
-    const { imagePath, debitAccount, creditAccount, date, memo, sum } = this.props.receipt;
+    const { imagePath, debitAccount, creditAccount, date, memo, sum, ignored } = this.props.receipt;
     return (
       <div id="wrapper">
         <h1 id="title">Receipt Annotator</h1>
@@ -32,6 +33,10 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
               {this.props.index + 1} / {this.props.length}
             </section>
             <section id="input">
+              <div id="ignore">
+                <label id="label-ignore">出力しない</label>
+                <input type="checkbox" checked={ignored} onChange={e => UpdateIgnoredFactory.create().execute(e.target.checked)} />
+              </div>
               <DebitAccountSelector debitAccount={debitAccount} />
               <CreditAccountSelector creditAccount={creditAccount} />
               <DateSelector date={date} />
