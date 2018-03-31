@@ -3,7 +3,7 @@ import Account from "../domain/Account";
 import accountListRepository from "../infrastructure/AccountListRepository";
 import { SelectCreditAccountFactory } from "../usecase/SelectCreditAccount";
 
-interface CreditAccountSelectorProps { creditAccount: Account }
+interface CreditAccountSelectorProps { creditAccount: Account, disabled: boolean }
 
 export default class CreditAccountSelector extends React.PureComponent<CreditAccountSelectorProps, {}> {
   render(): React.ReactNode {
@@ -16,6 +16,7 @@ export default class CreditAccountSelector extends React.PureComponent<CreditAcc
       <div>
         <label>決済手段</label>
         <select value={selected}
+          disabled={this.props.disabled}
           onChange={e => SelectCreditAccountFactory.create().execute(e.target.value)}>
           {creditAccountOptions}
         </select>

@@ -3,7 +3,7 @@ import Account from "../domain/Account";
 import accountListRepository from "../infrastructure/AccountListRepository";
 import { SelectDebitAccountFactory } from "../usecase/SelectDebitAccount";
 
-interface DebitAccountSelectorProps { debitAccount: Account }
+interface DebitAccountSelectorProps { debitAccount: Account, disabled: boolean }
 
 export default class DebitAccountSelector extends React.PureComponent<DebitAccountSelectorProps, {}> {
   render(): React.ReactNode {
@@ -16,6 +16,7 @@ export default class DebitAccountSelector extends React.PureComponent<DebitAccou
       <div>
         <label>勘定科目</label>
         <select value={selected}
+          disabled={this.props.disabled}
           onChange={e => SelectDebitAccountFactory.create().execute(e.target.value)}>
           {debitAccountOptions}
         </select>

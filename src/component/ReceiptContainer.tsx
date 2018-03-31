@@ -20,6 +20,7 @@ interface ReceiptProps {
 export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
   render(): React.ReactNode {
     const { imagePath, debitAccount, creditAccount, date, memo, sum, ignored } = this.props.receipt;
+    const disabled = ignored;
     return (
       <div id="wrapper">
         <h1 id="title">Receipt Annotator</h1>
@@ -37,16 +38,16 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
                 <label id="label-ignore">出力しない</label>
                 <input type="checkbox" checked={ignored} onChange={e => UpdateIgnoredFactory.create().execute(e.target.checked)} />
               </div>
-              <DebitAccountSelector debitAccount={debitAccount} />
-              <CreditAccountSelector creditAccount={creditAccount} />
-              <DateSelector date={date} />
+              <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} />
+              <CreditAccountSelector creditAccount={creditAccount} disabled={disabled} />
+              <DateSelector date={date} disabled={disabled} />
               <div id="memo">
                 <label id="label-memo">メモ</label>
-                <input type="text" value={memo} onChange={e => UpdateMemoFactory.create().execute(e.target.value)} id="input-memo" />
+                <input type="text" disabled={disabled} value={memo} onChange={e => UpdateMemoFactory.create().execute(e.target.value)} id="input-memo" />
               </div>
               <div id="price">
                 <label id="label-price">合計</label>
-                <input type="text" value={String(sum)}
+                <input type="text" value={String(sum)} disabled={disabled}
                   onChange={e => UpdateSumFactory.create().execute(e.target.value)} id="input-price" />
               </div>
             </section>
