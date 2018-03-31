@@ -19,11 +19,11 @@ export class ExportReceipt {
     this.settingRepository = settingRepository;
   }
 
-  execute() {
+  execute(): Promise<void> {
     const setting = this.settingRepository.get();
     const receiptList = this.receiptListRepository.get();
     const content = ReceiptQifConverter.execute(receiptList.getUsable());
     //const content = JSON.stringify(receiptList); // FIXME
-    Writer.execute(`${setting.outputDirectory}/receipts${setting.outputExtension()}`, content);
+    return Writer.execute(`${setting.outputDirectory}/receipts${setting.outputExtension()}`, content);
   }
 }

@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import promisify = require("util.promisify");
 
 export class Reader {
   static execute(path: string): string {
@@ -8,8 +9,7 @@ export class Reader {
 }
 
 export class Writer {
-  static execute(path: string, content: string) {
-    fs.writeFileSync(path, content);
-    // TODO error handling
+  static execute(path: string, content: string): Promise<void> {
+    return promisify(fs.writeFile)(path, content);
   }
 }

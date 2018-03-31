@@ -4,9 +4,9 @@ import ReceiptImage from "./ReceiptImage";
 import DebitAccountSelector from "./DebitAccountSelector";
 import CreditAccountSelector from "./CreditAccountSelector";
 import DateSelector from "./DateSelector";
+import ExportReceiptButton from "./ExportReceiptButton";
 
 import Receipt from "../domain/Receipt";
-import { ExportReceiptFactory } from "../usecase/ExportReceipt";
 import { UpdateMemoFactory } from "../usecase/UpdateMemo";
 import { UpdateSumFactory } from "../usecase/UpdateSum";
 import { UpdateIgnoredFactory } from "../usecase/UpdateIgnored";
@@ -23,7 +23,7 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
     return (
       <div id="wrapper">
         <h1 id="title">Receipt Annotator</h1>
-        <button id="button-save" onClick={() => ExportReceiptFactory.create().execute()}>Save</button>
+        <ExportReceiptButton />
         <div id="container">
           <section id="receipt">
             <ReceiptImage imagePath={imagePath} />
