@@ -7,10 +7,17 @@ import { LoadSettingFactory } from "./usecase/LoadSetting";
 import { LoadAccountListFactory } from "./usecase/LoadAccountList";
 import { RegisterKeyEventFactory } from "./usecase/RegisterKeyEvent";
 import receiptListRepository from "./infrastructure/ReceiptListRepository";
+import settingRepository from "./infrastructure/SettingRepository";
 
 moment.locale("ja");
+const settingsPath = "./config/settings.json";
+const accountsPath = "./config/accounts.json";
+LoadSettingFactory.create().execute(settingsPath);
+LoadAccountListFactory.create().execute(accountsPath);
+LoadReceiptListFactory.create().execute();
+RegisterKeyEventFactory.create().execute();
 
-receiptListRepository.onChange( () => { 
+const renderHandler = () => { 
   const receiptList = receiptListRepository.get();
   ReactDOM.render(
     <ReceiptContainer
@@ -19,11 +26,8 @@ receiptListRepository.onChange( () => {
       length={receiptList.length}
     />, document.getElementById("app")
   );
-});
+};
 
-const settingsPath = "./config/settings.json";
-const accountsPath = "./config/accounts.json";
-LoadSettingFactory.create().execute(settingsPath);
-LoadAccountListFactory.create().execute(accountsPath);
-LoadReceiptListFactory.create().execute();
-RegisterKeyEventFactory.create().execute();
+receiptListRepository.onChange(renderHandler);
+settingRepository.onChange(renderHandler);
+renderHandler();
