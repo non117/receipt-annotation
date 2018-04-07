@@ -28,10 +28,6 @@
   version "16.0.31"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.31.tgz#5285da62f3ac62b797f6d0729a1d6181f3180c3e"
 
-"@types/util.promisify@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/util.promisify/-/util.promisify-1.0.0.tgz#26a77d9b210e937430fa549b922d34f8e51185a0"
-
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
