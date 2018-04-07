@@ -57,14 +57,13 @@ class Text
   def initialize(text_annotation)
     @text = text_annotation['description']
     rect = text_annotation.dig('boundingPoly', 'vertices')
-    @height = rect[3]['y'] - rect[0]['y']
+    @height = rect[3]['y'].to_i - rect[0]['y'].to_i
     @width = 0
     # ¥単体が入ってくると0 divisionになってしまうので除く
-    # CloudVisionの結果といえどnullが入ったへんなデータがある
-    if rect[0]['x'] && rect[1]['x'] && @text != "¥"
-      @width = (rect[1]['x'] - rect[0]['x']) / @text.delete("¥").size # ¥のフォントが小さすぎるので除外する
+    unless @text == "¥"
+      @width = (rect[1]['x'].to_i - rect[0]['x'].to_i) / @text.delete("¥").size # ¥のフォントが小さすぎるので除外する
     end
-    @position = (rect[3]['y'] + rect[0]['y']) / 2
+    @position = (rect[3]['y'].to_i + rect[0]['y'].to_i) / 2
     @x = rect.map{ |v| v['x'] }.compact.min
   end
 
@@ -208,7 +207,6 @@ def main()
 rescue => e
   puts e
   puts e.backtrace.join "\n"
-  puts original_annotations.last
   File.write(DEBUG_FILE_PATH, original_annotations.to_json)
 end
 
