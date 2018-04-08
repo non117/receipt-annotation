@@ -32,6 +32,7 @@ export default class Account {
   isCredit(): boolean {
     return this.type === AccountType.CASH ||
       this.type === AccountType.CREDIT ||
-      this.type === AccountType.BANK;
+      this.type === AccountType.BANK ||
+      this.type === AccountType.ASSET;
   }
 }
