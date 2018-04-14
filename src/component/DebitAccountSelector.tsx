@@ -13,14 +13,18 @@ export default class DebitAccountSelector extends React.PureComponent<DebitAccou
       <option value={account.fullName} key={account.fullName}>{account.name}</option>
     );
     return (
-      <div>
-        <label>勘定科目</label>
-        <select value={selected}
-          disabled={this.props.disabled}
-          onChange={e => SelectDebitAccountFactory.create().execute(e.target.value)}>
-          {debitAccountOptions}
-        </select>
-      </div>
+      <tr>
+        <td>
+          <label>勘定科目</label>
+        </td>
+        <td>
+          <select value={selected}
+            disabled={this.props.disabled}
+            onChange={e => SelectDebitAccountFactory.create().execute(e.target.value)}>
+            {debitAccountOptions}
+          </select>
+        </td>
+      </tr>
     );
   }
 }

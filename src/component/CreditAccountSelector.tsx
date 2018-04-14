@@ -13,14 +13,18 @@ export default class CreditAccountSelector extends React.PureComponent<CreditAcc
       <option value={account.fullName} key={account.fullName}>{account.name}</option>
     );
     return (
-      <div>
-        <label>決済手段</label>
-        <select value={selected}
-          disabled={this.props.disabled}
-          onChange={e => SelectCreditAccountFactory.create().execute(e.target.value)}>
-          {creditAccountOptions}
-        </select>
-      </div>
+      <tr>
+        <td>
+          <label>決済手段</label>
+        </td>
+        <td>
+          <select value={selected}
+            disabled={this.props.disabled}
+            onChange={e => SelectCreditAccountFactory.create().execute(e.target.value)}>
+            {creditAccountOptions}
+          </select>
+        </td>
+      </tr>
     );
   }
 }

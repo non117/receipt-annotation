@@ -38,18 +38,31 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
                 <label id="label-ignore">出力しない</label>
                 <input type="checkbox" checked={ignored} onChange={e => UpdateIgnoredFactory.create().execute(e.target.checked)} />
               </div>
-              <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} />
-              <CreditAccountSelector creditAccount={creditAccount} disabled={disabled} />
-              <DateSelector date={date} disabled={disabled} />
-              <div id="memo">
-                <label id="label-memo">メモ</label>
-                <input type="text" disabled={disabled} value={memo} onChange={e => UpdateMemoFactory.create().execute(e.target.value)} id="input-memo" />
-              </div>
-              <div id="price">
-                <label id="label-price">合計</label>
-                <input type="text" value={String(sum)} disabled={disabled}
-                  onChange={e => UpdateSumFactory.create().execute(e.target.value)} id="input-price" />
-              </div>
+              <table>
+                <tbody>
+                  <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} />
+                  <CreditAccountSelector creditAccount={creditAccount} disabled={disabled} />
+                  <DateSelector date={date} disabled={disabled} />
+                  <tr id="memo">
+                    <td>
+                      <label id="label-memo">メモ</label>
+                    </td>
+                    <td>
+                      <input type="text" disabled={disabled} value={memo}
+                        onChange={e => UpdateMemoFactory.create().execute(e.target.value)} id="input-memo" />
+                    </td>
+                  </tr>
+                  <tr id="price">
+                    <td>
+                      <label id="label-price">合計</label>
+                    </td>
+                    <td>
+                    <input type="text" value={String(sum)} disabled={disabled}
+                      onChange={e => UpdateSumFactory.create().execute(e.target.value)} id="input-price" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </section>
           </div>
         </div>

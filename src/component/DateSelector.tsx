@@ -9,14 +9,18 @@ interface DateSelectorProps { date: moment.Moment, disabled: boolean }
 export default class DateSelector extends React.PureComponent<DateSelectorProps, {}> {
   render(): React.ReactNode {
     return (
-      <div>
-        <label>日付</label>
-        <DatePicker
-          disabled={this.props.disabled}
-          selected={this.props.date}
-          onChange={date => UpdateDateFactory.create().execute(date)}
-        />
-      </div>
+      <tr>
+        <td>
+          <label>日付</label>
+        </td>
+        <td>
+          <DatePicker
+            disabled={this.props.disabled}
+            selected={this.props.date}
+            onChange={date => UpdateDateFactory.create().execute(date)}
+          />
+        </td>
+      </tr>
     );
   }
 }
