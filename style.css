@@ -18,8 +18,8 @@
 }
 #input-and-action {
   flex: 0.5;
-  width: 100%;
-  padding: 15% 2% 2% 2%;
+  width: 300px;
+  padding: 5% 2% 2% 2%;
   font-size: 18px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -39,23 +39,10 @@
   color: #444;
 }
 
-#input-and-action #price
-{
-  background-color: seashell;
-}
-
 #input-and-action #label-price
 {
   font-weight: bold;
-  margin-top: 30px;
-  padding: 10px 0px 0px 0px;
   color: black;
-
-}
-
-#input-and-action #input-price
-{
-  margin:  10px 10px 50px 10px;
 }
 
 #input-and-action button.button-action{
@@ -92,4 +79,19 @@ div#wrapper{
 
 #info {
   text-align: center;
+  width: 300px;
+  margin-bottom: 15%;
+}
+
+tr#ignore input
+{
+  display:inline;
+}
+
+tr#ignore label
+{
+  display: inline;
+}
+tr#price {
+  background-color: seashell;
 }

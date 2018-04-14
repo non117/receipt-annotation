@@ -34,12 +34,14 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
               {this.props.index + 1} / {this.props.length}
             </section>
             <section id="input">
-              <div id="ignore">
-                <label id="label-ignore">出力しない</label>
-                <input type="checkbox" checked={ignored} onChange={e => UpdateIgnoredFactory.create().execute(e.target.checked)} />
-              </div>
               <table>
                 <tbody>
+                  <tr id="ignore">
+                    <td colSpan={2}>
+                      <input type="checkbox" checked={ignored} onChange={e => UpdateIgnoredFactory.create().execute(e.target.checked)} />
+                      <label id="label-ignore">出力しない</label>
+                    </td>
+                  </tr>
                   <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} />
                   <CreditAccountSelector creditAccount={creditAccount} disabled={disabled} />
                   <DateSelector date={date} disabled={disabled} />
