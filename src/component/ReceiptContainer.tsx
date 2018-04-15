@@ -45,15 +45,6 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
                   <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} />
                   <CreditAccountSelector creditAccount={creditAccount} disabled={disabled} />
                   <DateSelector date={date} disabled={disabled} />
-                  <tr id="memo">
-                    <td>
-                      <label id="label-memo">メモ</label>
-                    </td>
-                    <td>
-                      <input type="text" disabled={disabled} value={memo}
-                        onChange={e => UpdateMemoFactory.create().execute(e.target.value)} id="input-memo" />
-                    </td>
-                  </tr>
                   <tr id="price">
                     <td>
                       <label id="label-price">合計</label>
@@ -61,6 +52,15 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
                     <td>
                     <input type="text" value={String(sum)} disabled={disabled}
                       onChange={e => UpdateSumFactory.create().execute(e.target.value)} id="input-price" />
+                    </td>
+                  </tr>
+                  <tr id="memo">
+                    <td>
+                      <label id="label-memo">メモ</label>
+                    </td>
+                    <td>
+                      <input type="text" disabled={disabled} value={memo}
+                        onChange={e => UpdateMemoFactory.create().execute(e.target.value)} id="input-memo" />
                     </td>
                   </tr>
                 </tbody>
