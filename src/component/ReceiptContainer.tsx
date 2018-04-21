@@ -42,9 +42,9 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
                       <label id="label-ignore">出力しない</label>
                     </td>
                   </tr>
+                  <DateSelector date={date} disabled={disabled} />
                   <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} />
                   <CreditAccountSelector creditAccount={creditAccount} disabled={disabled} />
-                  <DateSelector date={date} disabled={disabled} />
                   <tr id="price">
                     <td>
                       <label id="label-price">合計</label>
