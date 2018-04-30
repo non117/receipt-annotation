@@ -16,10 +16,8 @@ export class UpdateSum {
 
   execute(sum: string) {
     const parsedSum = Number(sum);
-    if (parsedSum !== NaN) {
-      const receiptList = this.receiptListRepository.get();
-      receiptList.updateReceipt({ sum: parsedSum });
-      this.receiptListRepository.set(receiptList);
-    }
+    const receiptList = this.receiptListRepository.get();
+    receiptList.updateReceipt({ sum: parsedSum || 0 });
+    this.receiptListRepository.set(receiptList);
   }
 }
