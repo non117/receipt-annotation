@@ -43,7 +43,7 @@ export default class ReceiptContainer extends React.PureComponent<ReceiptProps, 
                     </td>
                   </tr>
                   <DateSelector date={date} disabled={disabled} />
-                  <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} />
+                  <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} index={this.props.index} />
                   <CreditAccountSelector creditAccount={creditAccount} disabled={disabled} />
                   <tr id="price">
                     <td>
