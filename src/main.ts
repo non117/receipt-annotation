@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain, IpcMessageEvent } from "electron";
+import * as storage from "electron-json-storage";
 import * as path from "path";
 import * as url from "url";
 
@@ -32,4 +33,24 @@ app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on("requestSettings", (event: IpcMessageEvent, args: {}) => {
+  storage.get("config", (error: Error, data: object) => {
+    if (error) {
+      event.sender.send("responseSettings", error.message);
+    } else {
+      event.sender.send("responseSettings", data);
+    }
+  });
+});
+
+ipcMain.on("requestSaveSettings", (event: IpcMessageEvent, args: object) => {
+  storage.set("config", args, (error: Error) => {
+    if (error) {
+      event.sender.send("responseSaveSettings", error.message);
+    } else {
+      event.sender.send("responseSaveSettings", { saved: true } );
+    }
+  })
 });
