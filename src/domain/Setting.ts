@@ -1,23 +1,21 @@
+import WalletSet from "./WalletSet";
+
 interface SettingObject {
   annotatedJsonPath: string;
   outputDirectory: string;
   outputFormat: string;
-  defaultCreditAccount: string;
-  defaultDebitAccount: string;
   moveNextKey: string;
   movePrevKey: string;
-  keywords: { [key: string]: string };
+  wallets: WalletSet;
 }
 
 export default class Setting {
   annotatedJsonPath: string;
   outputDirectory: string;
   outputFormat: string;
-  defaultCreditAccount: string;
-  defaultDebitAccount: string;
   moveNextKey: string;
   movePrevKey: string;
-  keywords: { [key: string]: string };
+  wallets: WalletSet;
 
   constructor(setting: SettingObject) {
     Object.assign(this, setting);
