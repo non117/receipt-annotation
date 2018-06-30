@@ -1,4 +1,4 @@
 node_modules
 dist
 config/settings.json
-config/accounts.json
+config/wallets.json

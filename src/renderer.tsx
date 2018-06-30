@@ -4,16 +4,16 @@ import * as React from "react";
 import ReceiptContainer from "./component/ReceiptContainer";
 import { LoadReceiptListFactory } from "./usecase/LoadReceiptList";
 import { LoadSettingFactory } from "./usecase/LoadSetting";
-import { LoadAccountListFactory } from "./usecase/LoadAccountList";
+import { LoadWalletListFactory } from "./usecase/LoadWalletList";
 import { RegisterKeyEventFactory } from "./usecase/RegisterKeyEvent";
 import receiptListRepository from "./infrastructure/ReceiptListRepository";
 import settingRepository from "./infrastructure/SettingRepository";
 
 moment.locale("ja");
 const settingsPath = "./config/settings.json";
-const accountsPath = "./config/accounts.json";
+const walletsPath = "./config/wallets.json";
 LoadSettingFactory.create().execute(settingsPath);
-LoadAccountListFactory.create().execute(accountsPath);
+LoadWalletListFactory.create().execute(walletsPath);
 LoadReceiptListFactory.create().execute();
 RegisterKeyEventFactory.create().execute();
 

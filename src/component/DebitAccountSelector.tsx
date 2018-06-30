@@ -1,6 +1,6 @@
 import * as React from "react";
 import Account from "../domain/Account";
-import accountListRepository from "../infrastructure/AccountListRepository";
+import walletListRepository from "../infrastructure/WalletListRepository";
 import { SelectDebitAccountFactory } from "../usecase/SelectDebitAccount";
 
 interface DebitAccountSelectorProps { debitAccount: Account, disabled: boolean, index: number }
@@ -29,7 +29,7 @@ export default class DebitAccountSelector extends React.PureComponent<DebitAccou
   }
   render(): React.ReactNode {
     const selected = this.props.debitAccount && this.props.debitAccount.fullName;
-    const debitAccounts = accountListRepository.get().filterDebit();
+    const debitAccounts = walletListRepository.get().getCurrent().accountList.filterDebit();
     const debitAccountOptions = debitAccounts.map(account =>
       <option value={account.fullName} key={account.fullName}>{account.name}</option>
     );

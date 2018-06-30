@@ -1,37 +1,38 @@
 import Receipt, { ReceiptObject } from "../domain/Receipt";
 import ReceiptList from "../domain/ReceiptList";
-import accountListRepository, { AccountListRepository } from "../infrastructure/AccountListRepository";
+import walletListRepository, { WalletListRepository } from "../infrastructure/WalletListRepository";
 import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
 import { Reader } from "../infrastructure/FileIO";
 
 export class LoadReceiptListFactory {
   static create() {
-    return new LoadReceiptList(accountListRepository, receiptListRepository, settingRepository);
+    return new LoadReceiptList(walletListRepository, receiptListRepository, settingRepository);
   }
 }
 
 export class LoadReceiptList {
-  private accountListRepository: AccountListRepository;
+  private walletListRepository: WalletListRepository;
   private receiptListRepository: ReceiptListRepository;
   private settingRepository: SettingRepository;
 
-  constructor(accountListRepository: AccountListRepository, receiptListRepository: ReceiptListRepository, settingRepository: SettingRepository) {
-    this.accountListRepository = accountListRepository;
+  constructor(walletListRepository: WalletListRepository, receiptListRepository: ReceiptListRepository, settingRepository: SettingRepository) {
+    this.walletListRepository = walletListRepository;
     this.receiptListRepository = receiptListRepository;
     this.settingRepository = settingRepository;
   }
 
   execute() {
     const setting = this.settingRepository.get();
-    const accountList = this.accountListRepository.get();
-    const defaultDebitAccount = accountList.findByFullName(setting.defaultDebitAccount);
-    const defaultCreditAccount = accountList.findByFullName(setting.defaultCreditAccount);
+    const wallet = this.walletListRepository.get().getCurrent();
+    const accountList = wallet.accountList;
+    const defaultDebitAccount = accountList.findByFullName(wallet.defaultDebitAccount);
+    const defaultCreditAccount = accountList.findByFullName(wallet.defaultCreditAccount);
     const rawJson = Reader.execute(setting.annotatedJsonPath);
     const receipts = <Receipt[]>JSON.parse(rawJson).map((receipt: ReceiptObject) => {
       const accounts = {
         debitAccount: defaultDebitAccount,
-        creditAccount: accountList.findByFullName(setting.keywords[receipt.memo]) || defaultCreditAccount,
+        creditAccount: accountList.findByFullName(wallet.keywords[receipt.memo]) || defaultCreditAccount,
       };
       return new Receipt(Object.assign(receipt, accounts));
     });
