@@ -24,6 +24,7 @@
     "start": "yarn run build-main && yarn run build-renderer-dev && yarn run electron ./dist/main.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "electron-json-storage": "^4.1.0",
     "moment": "^2.20.1",
     "react": "^16.3.1",
