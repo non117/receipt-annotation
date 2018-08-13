@@ -26,8 +26,8 @@ export class LoadReceiptList {
     const setting = this.settingRepository.get();
     const wallet = this.walletListRepository.get().getCurrent();
     const accountList = wallet.accountList;
-    const defaultDebitAccount = accountList.findByFullName(wallet.defaultDebitAccount);
-    const defaultCreditAccount = accountList.findByFullName(wallet.defaultCreditAccount);
+    const defaultDebitAccount = wallet.getDefaultDebitAccount();
+    const defaultCreditAccount = wallet.getDefaultCreditAccount();
     const rawJson = Reader.execute(setting.annotatedJsonPath);
     const receipts = <Receipt[]>JSON.parse(rawJson).map((receipt: ReceiptObject) => {
       const accounts = {
