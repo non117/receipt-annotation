@@ -22,7 +22,7 @@ export default class Line {
     }
   }
 
-  memo(keywords: Array<string>): string {
+  findText(keywords: Array<string>): string {
     return keywords.filter(keyword => {
       return keyword; // FIXME: レーベンシュタイン
     })[0];

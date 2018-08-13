@@ -1,14 +1,16 @@
 import * as moment from "moment";
 import Account from "./Account";
+import Line from "./Line";
 
 export interface ReceiptObject {
   imagePath: string;
-  date: string;
+  date: moment.Moment;
   sum: number;
   memo: string;
   debitAccount: Account;
   creditAccount: Account;
   ignored: boolean;
+  lines: Array<Line>;
 }
 
 export default class Receipt {
@@ -19,16 +21,11 @@ export default class Receipt {
   debitAccount: Account;
   creditAccount: Account;
   ignored: boolean;
+  lines: Array<Line>;
   static DATE_FORMAT = "YYYY-MM-DD HH:mm Z";
 
   constructor(receipt: ReceiptObject) {
-    this.imagePath = receipt.imagePath;
-    this.date = receipt.date ? moment(receipt.date, Receipt.DATE_FORMAT) : moment();
-    this.sum = receipt.sum || 0;
-    this.memo = receipt.memo || "";
-    this.debitAccount = receipt.debitAccount;
-    this.creditAccount = receipt.creditAccount;
-    this.ignored = false;
+    Object.assign(this, receipt);
   }
 
   updateReceipt(updated: Partial<Receipt>): Receipt {
