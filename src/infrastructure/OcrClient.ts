@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 
-class OcrClient {
+export default class OcrClient {
   HOST = "https://vision.googleapis.com";
   ANNOTATE_PATH = "/v1/images:annotate";
 

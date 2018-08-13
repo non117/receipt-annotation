@@ -39,4 +39,8 @@ export default class ReceiptList {
     const newReceipt = this.getCurrent().updateReceipt(updated);
     this._receipts[this.currentIndex] = newReceipt;
   }
+
+  push(receipt: Receipt) {
+    this._receipts.push(receipt);
+  }
 }
