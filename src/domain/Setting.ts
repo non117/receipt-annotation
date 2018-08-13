@@ -1,4 +1,5 @@
 interface SettingObject {
+  apiKey: string;
   annotatedJsonPath: string;
   outputDirectory: string;
   outputFormat: string;
@@ -7,6 +8,7 @@ interface SettingObject {
 }
 
 export default class Setting {
+  apiKey: string;
   annotatedJsonPath: string;
   outputDirectory: string;
   outputFormat: string;
