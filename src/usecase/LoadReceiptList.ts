@@ -3,7 +3,7 @@ import ReceiptList from "../domain/ReceiptList";
 import walletListRepository, { WalletListRepository } from "../infrastructure/WalletListRepository";
 import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
-import { Reader } from "../infrastructure/FileIO";
+import { readFile } from "../infrastructure/FileIO";
 
 export class LoadReceiptListFactory {
   static create() {
@@ -28,7 +28,7 @@ export class LoadReceiptList {
     const accountList = wallet.accountList;
     const defaultDebitAccount = wallet.getDefaultDebitAccount();
     const defaultCreditAccount = wallet.getDefaultCreditAccount();
-    const rawJson = Reader.execute(setting.annotatedJsonPath);
+    const rawJson = readFile(setting.annotatedJsonPath);
     const receipts = <Receipt[]>JSON.parse(rawJson).map((receipt: ReceiptObject) => {
       const accounts = {
         debitAccount: defaultDebitAccount,

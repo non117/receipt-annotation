@@ -3,7 +3,7 @@ import AccountList from "../domain/AccountList";
 import Wallet, { WalletObject } from "../domain/Wallet";
 import WalletList from "../domain/WalletList";
 import walletListRepository, { WalletListRepository } from "../infrastructure/WalletListRepository";
-import { Reader } from "../infrastructure/FileIO";
+import { readFile } from "../infrastructure/FileIO";
 
 export class LoadWalletListFactory {
   static create() {
@@ -19,7 +19,7 @@ export class LoadWalletList {
   }
 
   execute(jsonPath: string) {
-    const rawJson = Reader.execute(jsonPath);
+    const rawJson = readFile(jsonPath);
     const walletObject = JSON.parse(rawJson);
     const wallets = walletObject.map(
       (wallet: WalletObject) => {

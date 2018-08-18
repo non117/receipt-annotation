@@ -3,15 +3,11 @@ import * as fs from "fs";
 import * as util from "util";
 require('util.promisify').shim();
 
-export class Reader {
-  static execute(path: string): string {
-    return fs.readFileSync(path).toString();
-    // TODO error handling
-  }
+export function readFile(path: string): string {
+  return fs.readFileSync(path).toString();
+  // TODO error handling
 }
 
-export class Writer {
-  static execute(path: string, content: string): Promise<void> {
-    return util.promisify(fs.writeFile)(path, content);
-  }
+export function writeFile(path: string, content: string): Promise<void> {
+  return util.promisify(fs.writeFile)(path, content);
 }
