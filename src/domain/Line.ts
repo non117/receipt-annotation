@@ -1,7 +1,9 @@
 import Phrase from "./Phrase";
+import * as levenshtein from "fast-levenshtein";
 
 export default class Line {
   SUM_PATTERN = /合計/;
+  THRESHOLD = 0.4
   text: string;
   maxWidth: number;
 
@@ -23,9 +25,7 @@ export default class Line {
   }
 
   findText(keywords: Array<string>): string {
-    return keywords.filter(keyword => {
-      return keyword; // FIXME: レーベンシュタイン
-    })[0];
+    return keywords.filter(keyword => levenshtein.get(keyword, this.text) < this.THRESHOLD)[0];
   }
 
   private isSum(): boolean {
