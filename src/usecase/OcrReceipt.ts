@@ -1,8 +1,6 @@
 import OcrClient from "../infrastructure/OcrClient";
 import { parseOcrResponse } from "./services/ParseOcrResponse";
 import constructReceipt from "../domain/services/ConstructReceipt";
-import Receipt, { ReceiptObject } from "../domain/Receipt";
-import ReceiptList from "../domain/ReceiptList";
 import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
 import walletListRepository, { WalletListRepository } from "../infrastructure/WalletListRepository";

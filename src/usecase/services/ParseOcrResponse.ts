@@ -29,7 +29,7 @@ function buildPhrase(textAnnotation: TextAnnotation) {
   let width = 0;
   // ¥単体が入ってくると0 divisionになってしまうので除く
   if (this.text !== "¥") {
-    const characterCount = this.text.length; // FIXME: ¥をのぞく
+    const characterCount = this.text.replace(/¥/g, "").length;
     width = (rect[1].x - rect[0].x) / characterCount;
   }
   const position = (rect[3].y + rect[0].y) / 2;
@@ -47,7 +47,7 @@ function buildLines(textAnnotations: Array<TextAnnotation>): Array < Line > {
       return phrase !== otherPhrase && phrase.isSameLine(otherPhrase);
     })
     tempPhrases.push(phrase);
-    // FIXME: もっとこう手心というか
+    // Line.new(line_texts.sort_by(&:x))
     return new Line(tempPhrases.sort((a, b) => {
       if (a.x < b.x) return -1;
       if (a.x > b.x) return 1;
