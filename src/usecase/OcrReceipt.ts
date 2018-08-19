@@ -1,3 +1,4 @@
+import { listImageFiles } from "../infrastructure/FileIO"
 import OcrClient from "../infrastructure/OcrClient";
 import { parseOcrResponse } from "./services/ParseOcrResponse";
 import constructReceipt from "../domain/services/ConstructReceipt";
@@ -22,11 +23,13 @@ export class OcrReceipt {
     this.walletListRepository = walletListRepository;
   }
 
-  execute(imagePaths: Array<string>) {
-    const apiKey = this.settingRepository.get().apiKey;
+  execute() {
+    const setting = this.settingRepository.get();
+    const apiKey = setting.apiKey;
     const receiptList = this.receiptListRepository.get();
     const wallet = this.walletListRepository.get().getCurrent();
     const ocrClient = new OcrClient(apiKey);
+    const imagePaths = listImageFiles(setting.receiptImageDirectory);
     imagePaths.map(imagePath => {
       ocrClient.call(imagePath).then(response => {
         const body: string = response.data; // TODO: save response body to temp file

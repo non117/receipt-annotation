@@ -9,11 +9,11 @@ export function readFile(path: string): string {
   // TODO error handling
 }
 
-export function listFiles(directory: string): Array<string> {
+export function listImageFiles(directory: string): Array<string> {
+  const imageExts = [".jpg", ".png"]
   const basePath = path.resolve(directory);
   const files = fs.readdirSync(basePath);
-  // TODO: extensionでフィルタ
-  return files.map(file => path.join(basePath, file));
+  return files.map(file => path.join(basePath, file)).filter(p => imageExts.includes(path.extname(p)));
 }
 
 export function writeFile(path: string, content: string): Promise<void> {
