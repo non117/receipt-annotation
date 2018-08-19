@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { readFile } from "./FileIO";
 
 export default class OcrClient {
   HOST = "https://vision.googleapis.com";
@@ -15,12 +16,12 @@ export default class OcrClient {
     })
   }
 
-  private payload(imagePath: string) {
+  private payload(imageContent: string) {
     return {
       requests: [
         {
           image: {
-            content: "",
+            content: imageContent,
           },
           features: [
             {
@@ -36,13 +37,14 @@ export default class OcrClient {
   }
 
   async call(imagePath: string) {
+    const buf = Buffer.from(readFile(imagePath));
     return this.client({
       method: "post",
       url: this.ANNOTATE_PATH,
       params: {
         key: this.apiKey,
       },
-      data: JSON.stringify(this.payload),
+      data: JSON.stringify(this.payload(buf.toString("base64"))),
     });
   }
 }
