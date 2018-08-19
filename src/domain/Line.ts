@@ -1,5 +1,6 @@
 import Phrase from "./Phrase";
 import * as levenshtein from "fast-levenshtein";
+import * as moment from "moment";
 
 export default class Line {
   SUM_PATTERN = /合計/;
@@ -14,8 +15,8 @@ export default class Line {
   }
 
   date() {
-    // momentでパースした日付オブジェクトをかえす
-    return null;
+    const parsed = moment(this.text);
+    return parsed.isValid() ? parsed : null;
   }
 
   sum(): number {
