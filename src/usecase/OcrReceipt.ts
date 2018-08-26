@@ -1,6 +1,6 @@
 import { listImageFiles } from "../infrastructure/FileIO"
 import OcrClient from "../infrastructure/OcrClient";
-import { parseOcrResponse } from "./services/ParseOcrResponse";
+import { parseOcrResponse, AnnotatedText } from "./services/ParseOcrResponse";
 import constructReceipt from "../domain/services/ConstructReceipt";
 import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
@@ -32,7 +32,7 @@ export class OcrReceipt {
     const imagePaths = listImageFiles(setting.receiptImageDirectory);
     imagePaths.map(imagePath => {
       ocrClient.call(imagePath).then(response => {
-        const body: string = response.data; // TODO: save response body to temp file
+        const body: AnnotatedText = response.data; // TODO: save response body to temp file
         const lines = parseOcrResponse(body);
         const receipt = constructReceipt(imagePath, lines, wallet);
         receiptList.push(receipt);

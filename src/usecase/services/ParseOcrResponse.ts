@@ -19,7 +19,7 @@ interface Response {
   textAnnotations: Array<TextAnnotation>;
 }
 
-interface AnnotatedText {
+export interface AnnotatedText {
   responses: Array<Response>;
 }
 
@@ -57,9 +57,8 @@ function buildLines(textAnnotations: Array<TextAnnotation>): Array < Line > {
   return Array.from(new Set(lines));
 }
 
-export function parseOcrResponse(rawOcrResponse: string): Array<Line> {
-  const responseObject: AnnotatedText = JSON.parse(rawOcrResponse); // FIXME: 本当に動くのかこれ
-  const textAnnotations = responseObject.responses[0].textAnnotations;
+export function parseOcrResponse(annotatedText: AnnotatedText): Array<Line> {
+  const textAnnotations = annotatedText.responses[0].textAnnotations;
   textAnnotations.shift; // 0番目はすべてが結合されたやつなので捨てる
   return buildLines(textAnnotations);
 }
