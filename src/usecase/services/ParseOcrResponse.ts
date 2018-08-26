@@ -59,7 +59,7 @@ function buildLines(textAnnotations: Array<TextAnnotation>): Array < Line > {
 
 export function parseOcrResponse(rawOcrResponse: string): Array<Line> {
   const responseObject: AnnotatedText = JSON.parse(rawOcrResponse); // FIXME: 本当に動くのかこれ
-  const textAnnotations = responseObject[0].textAnnotations;
+  const textAnnotations = responseObject.responses[0].textAnnotations;
   textAnnotations.shift; // 0番目はすべてが結合されたやつなので捨てる
   return buildLines(textAnnotations);
 }

@@ -13,7 +13,7 @@ export default class Phrase {
   // 前後の文字列の位置誤差が、フォントの高さに収まっているなら同じ行とする
   // 閾値はてきとう
   isSameLine(otherPhrase: Phrase) {
-    const minHeight = [this.height, otherPhrase.height].sort[0];
+    const minHeight = [this.height, otherPhrase.height].sort()[0];
     return Math.abs(otherPhrase.position - this.position) < minHeight / 3;
   }
 }

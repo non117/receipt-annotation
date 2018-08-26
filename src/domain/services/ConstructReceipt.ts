@@ -10,9 +10,9 @@ export default function constructReceipt(
 ): Receipt {
   const defaultDebitAccount = wallet.getDefaultDebitAccount();
   const defaultCreditAccount = wallet.getDefaultCreditAccount();
-  const date = this.lines.filter(line => line.date())[0] || moment();
-  const sum = this.lines.filter(line => line.sum())[0] || 0;
-  const memo = this.lines.filter(line => line.findText(wallet.keywords))[0] || "";
+  const date = lines.map(line => line.date())[0] || moment();
+  const sum = lines.map(line => line.sum())[0] || 0;
+  const memo = lines.map(line => line.findText(Object.keys(wallet.keywords)))[0] || "";
   const creditAccount = wallet.accountList.findByFullName(wallet.keywords[memo]) || defaultCreditAccount;
   return new Receipt({
     imagePath,
