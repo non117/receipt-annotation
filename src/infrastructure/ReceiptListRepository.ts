@@ -6,7 +6,7 @@ export class ReceiptListRepository extends EventEmitter {
   private list: ReceiptList
   constructor() {
     super();
-    this.list = null;
+    this.list = new ReceiptList([]);
   }
 
   get(): ReceiptList {
