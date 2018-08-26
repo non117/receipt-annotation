@@ -24,17 +24,18 @@ export interface AnnotatedText {
 }
 
 function buildPhrase(textAnnotation: TextAnnotation) {
+  const text = textAnnotation.description;
   const rect = textAnnotation.boundingPoly.vertices;
   const height = rect[3].y - rect[0].y;
   let width = 0;
   // ¥単体が入ってくると0 divisionになってしまうので除く
-  if (this.text !== "¥") {
-    const characterCount = this.text.replace(/¥/g, "").length;
+  if (text !== "¥") {
+    const characterCount = text.replace(/¥/g, "").length;
     width = (rect[1].x - rect[0].x) / characterCount;
   }
   const position = (rect[3].y + rect[0].y) / 2;
   const x = rect.map(p => p.x).sort()[0];
-  return new Phrase(height, width, position, x, textAnnotation.description);
+  return new Phrase(height, width, position, x, text);
 }
 
 // 自分のTextと同じ行と思われるTextを全探索し,
