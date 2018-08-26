@@ -37,7 +37,7 @@ export default class OcrClient {
   }
 
   async call(imagePath: string) {
-    const buf = Buffer.from(readFile(imagePath));
+    const buf = readFile(imagePath);
     return this.client({
       method: "post",
       url: this.ANNOTATE_PATH,

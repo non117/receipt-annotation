@@ -16,7 +16,7 @@ export class LoadSetting {
   }
 
   execute(jsonPath: string) {
-    const rawJson = readFile(jsonPath);
+    const rawJson = readFile(jsonPath).toString();
     const setting = new Setting(JSON.parse(rawJson));
     this.settingRepository.set(setting);
   }

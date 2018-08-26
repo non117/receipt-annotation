@@ -4,8 +4,8 @@ import * as path from "path";
 import * as util from "util";
 require('util.promisify').shim();
 
-export function readFile(path: string): string {
-  return fs.readFileSync(path).toString();
+export function readFile(path: string): Buffer {
+  return fs.readFileSync(path);
   // TODO error handling
 }
 

@@ -19,7 +19,7 @@ export class LoadWalletList {
   }
 
   execute(jsonPath: string) {
-    const rawJson = readFile(jsonPath);
+    const rawJson = readFile(jsonPath).toString();
     const walletObject = JSON.parse(rawJson);
     const wallets = walletObject.map(
       (wallet: WalletObject) => {
