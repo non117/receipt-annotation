@@ -26,18 +26,17 @@ export class OcrReceipt {
   execute() {
     const setting = this.settingRepository.get();
     const apiKey = setting.apiKey;
-    const receiptList = this.receiptListRepository.get();
     const wallet = this.walletListRepository.get().getCurrent();
     const ocrClient = new OcrClient(apiKey);
     const imagePaths = listImageFiles(setting.receiptImageDirectory);
-    imagePaths.map(imagePath => {
+    imagePaths.forEach(imagePath => {
       ocrClient.call(imagePath).then(response => {
         const body: AnnotatedText = response.data; // TODO: save response body to temp file
         const lines = parseOcrResponse(body);
-        const receipt = constructReceipt(imagePath, lines, wallet);
-        receiptList.push(receipt);
+        const receiptList = this.receiptListRepository.get();
+        receiptList.push(constructReceipt(imagePath, lines, wallet));
+        this.receiptListRepository.set(receiptList);
       })
-    })
-    this.receiptListRepository.set(receiptList);
+    });
   }
 }
