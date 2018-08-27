@@ -5,6 +5,7 @@ import ReceiptContainer from "./component/ReceiptContainer";
 import { LoadReceiptListFactory } from "./usecase/LoadReceiptList";
 import { LoadSettingFactory } from "./usecase/LoadSetting";
 import { LoadWalletListFactory } from "./usecase/LoadWalletList";
+import { OcrReceiptFactory } from "./usecase/OcrReceipt";
 import { RegisterKeyEventFactory } from "./usecase/RegisterKeyEvent";
 import receiptListRepository from "./infrastructure/ReceiptListRepository";
 import settingRepository from "./infrastructure/SettingRepository";
@@ -14,20 +15,25 @@ const settingsPath = "./config/settings.json";
 const walletsPath = "./config/wallets.json";
 LoadSettingFactory.create().execute(settingsPath);
 LoadWalletListFactory.create().execute(walletsPath);
-LoadReceiptListFactory.create().execute();
+
+//LoadReceiptListFactory.create().execute();
+OcrReceiptFactory.create().execute();
 RegisterKeyEventFactory.create().execute();
 
-const renderHandler = () => { 
+const renderHandler = () => {
   const receiptList = receiptListRepository.get();
-  ReactDOM.render(
-    <ReceiptContainer
-      receipt={receiptList.getCurrent()}
-      index={receiptList.currentIndex}
-      length={receiptList.length}
-    />, document.getElementById("app")
-  );
+  if (receiptList.length() > 0) {
+    ReactDOM.render(
+      <ReceiptContainer
+        receipt={receiptList.getCurrent()}
+        index={receiptList.currentIndex}
+        length={receiptList.length()}
+      />, document.getElementById("app")
+    );
+  }
 };
 
 receiptListRepository.onChange(renderHandler);
 settingRepository.onChange(renderHandler);
 renderHandler();
+
