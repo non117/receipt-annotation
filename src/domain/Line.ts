@@ -9,7 +9,7 @@ export default class Line {
   maxWidth: number;
 
   constructor(phrases: Array<Phrase>) {
-    this.text = phrases.map(p => p.text).join();
+    this.text = phrases.map(p => p.text).join("");
     // FIXME: なんとかならんか
     this.maxWidth = phrases.map(p => p.width).sort()[phrases.length - 1];
   }

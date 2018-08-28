@@ -6,7 +6,10 @@ export default class Phrase {
   text: string;
 
   constructor(height: number, width: number, position: number, x: number, text: string) {
-    this.height, this.width, this.position, this.x = height, width, position, x;
+    this.height = height;
+    this.width = width;
+    this.position = position;
+    this.x = x;
     this.text = text;
   }
 
