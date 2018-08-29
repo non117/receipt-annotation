@@ -55,7 +55,8 @@ function buildLines(textAnnotations: Array<TextAnnotation>): Array < Line > {
       return 0;
     }));
   })
-  return Array.from(new Set(lines));
+  const lineMap = lines.reduce((m, line) => m.set(JSON.stringify(line), line), new Map());
+  return Array.from(lineMap.values());
 }
 
 export function parseOcrResponse(annotatedText: AnnotatedText): Array<Line> {
