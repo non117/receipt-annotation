@@ -4,6 +4,7 @@ import * as moment from "moment";
 
 export default class Line {
   SUM_PATTERN = /合計/;
+  DATE_FORMATS = ['YYYY/MM/DD', 'YYYY-MM-DD', 'YYYY年MM月DD日'];
   THRESHOLD = 0.4
   text: string;
   maxWidth: number;
@@ -15,8 +16,8 @@ export default class Line {
   }
 
   date() {
-    const parsed = moment(this.text);
-    return parsed.isValid() ? parsed : null;
+    const parsed = moment(this.text, this.DATE_FORMATS);
+    return parsed.isValid() && this.validYear(parsed) ? parsed : null;
   }
 
   sum(): number {
@@ -31,5 +32,10 @@ export default class Line {
 
   private isSum(): boolean {
     return this.SUM_PATTERN.test(this.text);
+  }
+
+  private validYear(m: moment.Moment): boolean {
+    const yearDiff = moment().year() - m.year();
+    return yearDiff >= 0 && yearDiff <= 1;
   }
 }
