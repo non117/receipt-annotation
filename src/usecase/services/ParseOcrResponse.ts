@@ -34,7 +34,7 @@ function buildPhrase(textAnnotation: TextAnnotation) {
     width = (rect[1].x - rect[0].x) / characterCount;
   }
   const position = (rect[3].y + rect[0].y) / 2;
-  const x = rect.map(p => p.x).sort()[0];
+  const x = rect.map(p => p.x).sort((a, b) => a - b)[0];
   return new Phrase(height, width, position, x, text);
 }
 
@@ -48,12 +48,7 @@ function buildLines(textAnnotations: Array<TextAnnotation>): Array < Line > {
       return phrase !== otherPhrase && phrase.isSameLine(otherPhrase);
     })
     tempPhrases.push(phrase);
-    // Line.new(line_texts.sort_by(&:x))
-    return new Line(tempPhrases.sort((a, b) => {
-      if (a.x < b.x) return -1;
-      if (a.x > b.x) return 1;
-      return 0;
-    }));
+    return new Line(tempPhrases.sort((a, b) => a.x - b.x));
   })
   const lineMap = lines.reduce((m, line) => m.set(JSON.stringify(line), line), new Map());
   return Array.from(lineMap.values());
