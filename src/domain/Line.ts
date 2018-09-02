@@ -24,6 +24,7 @@ export default class Line {
     if(this.isSum()) {
       return +this.text.split("").filter(c => !isNaN(+c)).join("")
     }
+    return null;
   }
 
   findText(keywords: Array<string>): string {
