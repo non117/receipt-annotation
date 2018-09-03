@@ -35,22 +35,16 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("requestSettings", (event: IpcMessageEvent, args: {}) => {
-  storage.get("config", (error: Error, data: object) => {
-    if (error) {
-      event.sender.send("responseSettings", error.message);
-    } else {
-      event.sender.send("responseSettings", data);
-    }
+ipcMain.on("requestLoadReceiptCache", (event: IpcMessageEvent, args: {}) => {
+  storage.get("cache", (error: Error, data: object) => {
+    const response = error ? error.message : data;
+    event.sender.send("responseLoadReceiptCache", response);
   });
 });
 
-ipcMain.on("requestSaveSettings", (event: IpcMessageEvent, args: object) => {
+ipcMain.on("requestSaveReceiptCache", (event: IpcMessageEvent, args: object) => {
   storage.set("config", args, (error: Error) => {
-    if (error) {
-      event.sender.send("responseSaveSettings", error.message);
-    } else {
-      event.sender.send("responseSaveSettings", { saved: true } );
-    }
+    const response = error ? error.message : { saved: true };
+    event.sender.send("responseSaveReceiptCache", response);
   })
 });
