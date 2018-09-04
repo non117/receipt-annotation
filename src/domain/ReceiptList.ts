@@ -13,6 +13,10 @@ export default class ReceiptList {
     return this._receipts.length;
   }
 
+  getAll(): Array<Receipt> {
+    return this._receipts;
+  }
+
   getUsable(): Array<Receipt> {
     return this._receipts.filter(r => !r.ignored);
   }
