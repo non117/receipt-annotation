@@ -34,7 +34,8 @@ export class OcrReceipt {
         const body: AnnotatedText = response.data; // TODO: save response body to temp file
         const lines = parseOcrResponse(body);
         const receiptList = this.receiptListRepository.get();
-        receiptList.push(constructReceipt(imagePath, lines, wallet));
+        const receipt = constructReceipt(imagePath, lines, wallet);
+        receiptList.push(receipt);
         this.receiptListRepository.set(receiptList);
       })
     });
