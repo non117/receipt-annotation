@@ -5,6 +5,7 @@ import constructReceipt from "../domain/services/ConstructReceipt";
 import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
 import settingRepository, { SettingRepository } from "../infrastructure/SettingRepository";
 import walletListRepository, { WalletListRepository } from "../infrastructure/WalletListRepository";
+import { SaveReceiptCacheFactory } from "./SaveReceiptCache";
 
 export class OcrReceiptFactory {
   static create() {
@@ -29,8 +30,8 @@ export class OcrReceipt {
     const wallet = this.walletListRepository.get().getCurrent();
     const ocrClient = new OcrClient(apiKey);
     const imagePaths = listImageFiles(setting.receiptImageDirectory);
-    imagePaths.forEach(imagePath => {
-      ocrClient.call(imagePath).then(response => {
+    const ocrPromises = imagePaths.map(imagePath => {
+      return ocrClient.call(imagePath).then(response => {
         const body: AnnotatedText = response.data; // TODO: save response body to temp file
         const lines = parseOcrResponse(body);
         const receiptList = this.receiptListRepository.get();
@@ -38,6 +39,9 @@ export class OcrReceipt {
         receiptList.push(receipt);
         this.receiptListRepository.set(receiptList);
       })
+    });
+    Promise.all(ocrPromises).then(() => {
+      SaveReceiptCacheFactory.create().execute();
     });
   }
 }
