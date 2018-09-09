@@ -43,7 +43,7 @@ ipcMain.on("requestLoadReceiptCache", (event: IpcMessageEvent, args: {}) => {
 });
 
 ipcMain.on("requestSaveReceiptCache", (event: IpcMessageEvent, args: object) => {
-  storage.set("config", args, (error: Error) => {
+  storage.set("cache", args, (error: Error) => {
     const response = error ? error.message : { saved: true };
     event.sender.send("responseSaveReceiptCache", response);
   })
