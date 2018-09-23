@@ -13,6 +13,10 @@ export default class WalletList {
     return this._wallets.get(this.currentWalletName);
   }
 
+  getWalletNames(): Array<string> {
+    return Array.from(this._wallets.keys());
+  }
+
   select(walletName: string) {
     if(this._wallets.get(walletName) !== undefined) {
       this.currentWalletName = walletName;

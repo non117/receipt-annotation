@@ -8,6 +8,7 @@ import { OcrReceiptFactory } from "./usecase/OcrReceipt";
 import { RegisterKeyEventFactory } from "./usecase/RegisterKeyEvent";
 import receiptListRepository from "./infrastructure/ReceiptListRepository";
 import settingRepository from "./infrastructure/SettingRepository";
+import walletListRepository from "./infrastructure/WalletListRepository";
 
 moment.locale("ja");
 // TODO: IPCでsaveしたいがほぼやる必要がない
@@ -21,12 +22,14 @@ RegisterKeyEventFactory.create().execute();
 
 const renderHandler = () => {
   const receiptList = receiptListRepository.get();
+  const walletList = walletListRepository.get();
   if (receiptList.length() > 0) {
     ReactDOM.render(
       <ReceiptContainer
         receipt={receiptList.getCurrent()}
         index={receiptList.currentIndex}
         length={receiptList.length()}
+        walletNames={walletList.getWalletNames()}
       />, document.getElementById("app")
     );
   }

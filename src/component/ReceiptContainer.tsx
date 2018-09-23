@@ -15,6 +15,7 @@ interface ReceiptProps {
   receipt: Receipt;
   index: number;
   length: number;
+  walletNames: Array<string>;
 }
 
 export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
