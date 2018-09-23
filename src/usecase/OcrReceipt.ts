@@ -32,7 +32,7 @@ export class OcrReceipt {
     const imagePaths = listImageFiles(setting.receiptImageDirectory);
     const ocrPromises = imagePaths.map(imagePath => {
       return ocrClient.call(imagePath).then(response => {
-        const body: AnnotatedText = response.data; // TODO: save response body to temp file
+        const body: AnnotatedText = response.data;
         const lines = parseOcrResponse(body);
         const receiptList = this.receiptListRepository.get();
         const receipt = constructReceipt(imagePath, lines, wallet);

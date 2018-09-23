@@ -22,7 +22,7 @@ export default class Receipt {
   creditAccount: Account;
   ignored: boolean;
   lines: Array<Line>;
-  static DATE_FORMAT = "YYYY-MM-DD HH:mm Z";
+  //static DATE_FORMAT = "YYYY-MM-DD HH:mm Z";
 
   constructor(receipt: ReceiptObject) {
     Object.assign(this, receipt);
