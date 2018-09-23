@@ -1,15 +1,41 @@
 import * as React from "react";
 
-import ReceiptImage from "./ReceiptImage";
-import DebitAccountSelector from "./DebitAccountSelector";
 import CreditAccountSelector from "./CreditAccountSelector";
+import DebitAccountSelector from "./DebitAccountSelector";
 import DateSelector from "./DateSelector";
 import ExportReceiptButton from "./ExportReceiptButton";
+import IgnoreInput from "./IgnoreInput";
+import MemoInput from "./MemoInput";
+import PriceInput from "./PriceInput";
+import ReceiptImage from "./ReceiptImage";
 
 import Receipt from "../domain/Receipt";
-import { UpdateMemoFactory } from "../usecase/UpdateMemo";
-import { UpdateSumFactory } from "../usecase/UpdateSum";
-import { UpdateIgnoredFactory } from "../usecase/UpdateIgnored";
+
+const PageInfo = (props: { index: number, length: number }) => {
+  return (
+    <section id="info">
+      {props.index + 1} / {props.length}
+    </section>
+  );
+}
+
+const Input = (props: { receipt: Receipt, index: number }) => {
+  const { debitAccount, creditAccount, date, memo, sum, ignored } = props.receipt;
+  return (
+    <section id="input">
+      <table>
+        <tbody>
+          <IgnoreInput ignored={ignored} />
+          <DateSelector date={date} disabled={ignored} />
+          <DebitAccountSelector debitAccount={debitAccount} disabled={ignored} index={props.index} />
+          <CreditAccountSelector creditAccount={creditAccount} disabled={ignored} />
+          <PriceInput sum={sum} disabled={ignored} />
+          <MemoInput memo={memo} disabled={ignored} />
+        </tbody>
+      </table>
+    </section>
+  );
+}
 
 interface ReceiptProps {
   receipt: Receipt;
@@ -18,58 +44,18 @@ interface ReceiptProps {
   walletNames: Array<string>;
 }
 
-export default class ReceiptContainer extends React.PureComponent<ReceiptProps, {}> {
-  render(): React.ReactNode {
-    const { imagePath, debitAccount, creditAccount, date, memo, sum, ignored } = this.props.receipt;
-    const disabled = ignored;
-    return (
-      <div id="wrapper">
-        <h1 id="title">Receipt Annotator</h1>
-        <ExportReceiptButton />
-        <div id="container">
-          <section id="receipt">
-            <ReceiptImage imagePath={imagePath} />
-          </section>
-          <div id="input-and-action">
-            <section id="info">
-              {this.props.index + 1} / {this.props.length}
-            </section>
-            <section id="input">
-              <table>
-                <tbody>
-                  <tr id="ignore">
-                    <td colSpan={2}>
-                      <input type="checkbox" checked={ignored} onChange={e => UpdateIgnoredFactory.create().execute(e.target.checked)} />
-                      <label id="label-ignore">出力しない</label>
-                    </td>
-                  </tr>
-                  <DateSelector date={date} disabled={disabled} />
-                  <DebitAccountSelector debitAccount={debitAccount} disabled={disabled} index={this.props.index} />
-                  <CreditAccountSelector creditAccount={creditAccount} disabled={disabled} />
-                  <tr id="price">
-                    <td>
-                      <label id="label-price">合計</label>
-                    </td>
-                    <td>
-                    <input type="text" value={String(sum)} disabled={disabled}
-                      onChange={e => UpdateSumFactory.create().execute(e.target.value)} id="input-price" />
-                    </td>
-                  </tr>
-                  <tr id="memo">
-                    <td>
-                      <label id="label-memo">メモ</label>
-                    </td>
-                    <td>
-                      <input type="text" disabled={disabled} value={memo}
-                        onChange={e => UpdateMemoFactory.create().execute(e.target.value)} id="input-memo" />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-          </div>
+export default (props: ReceiptProps) => {
+  return (
+    <div id="wrapper">
+      <h1 id="title">Receipt Annotator</h1>
+      <ExportReceiptButton />
+      <div id="container">
+        <ReceiptImage imagePath={props.receipt.imagePath} />
+        <div id="input-and-action">
+          <PageInfo index={props.index} length={props.length} />
+          <Input receipt={props.receipt} index={props.index} />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
