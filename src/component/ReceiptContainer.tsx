@@ -8,6 +8,7 @@ import IgnoreInput from "./IgnoreInput";
 import MemoInput from "./MemoInput";
 import PriceInput from "./PriceInput";
 import ReceiptImage from "./ReceiptImage";
+import WalletSelector from "./WalletSelector";
 
 import Receipt from "../domain/Receipt";
 
@@ -41,6 +42,7 @@ interface ReceiptProps {
   receipt: Receipt;
   index: number;
   length: number;
+  currentWallet: string;
   walletNames: Array<string>;
 }
 
@@ -49,6 +51,7 @@ export default (props: ReceiptProps) => {
     <div id="wrapper">
       <h1 id="title">Receipt Annotator</h1>
       <ExportReceiptButton />
+      <WalletSelector walletNames={props.walletNames} current={props.currentWallet} />
       <div id="container">
         <ReceiptImage imagePath={props.receipt.imagePath} />
         <div id="input-and-action">

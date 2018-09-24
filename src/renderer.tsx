@@ -29,6 +29,7 @@ const renderHandler = () => {
         receipt={receiptList.getCurrent()}
         index={receiptList.currentIndex}
         length={receiptList.length()}
+        currentWallet={walletList.getCurrent().name}
         walletNames={walletList.getWalletNames()}
       />, document.getElementById("app")
     );
