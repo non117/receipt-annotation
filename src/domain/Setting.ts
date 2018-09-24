@@ -1,7 +1,6 @@
 interface SettingObject {
   apiKey: string;
   receiptImageDirectory: string;
-  annotatedJsonPath: string;
   outputDirectory: string;
   outputFormat: string;
   moveNextKey: string;
@@ -11,7 +10,6 @@ interface SettingObject {
 export default class Setting {
   apiKey: string;
   receiptImageDirectory: string;
-  annotatedJsonPath: string;
   outputDirectory: string;
   outputFormat: string;
   moveNextKey: string;

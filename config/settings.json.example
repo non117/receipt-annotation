@@ -1,15 +1,8 @@
 {
   "receiptImageDirectory": "full path of receipt image directory",
-  "annotatedJsonPath": "intermediate annotated receipt json",
   "outputDirectory": "output receipt directory",
   "outputFormat": "qif",
   "apiKey": "gcp api key",
-  "defaultCreditAccount": "資産:流動資産:現金",
-  "defaultDebitAccount": "費用:生活:食費",
   "moveNextKey": "ArrowRight",
-  "movePrevKey": "ArrowLeft",
-  "keywords: {
-    "セブン-イレブン": "負債:クレジットカード",
-    "Family Mart": "負債:クレジットカード"
-  }
+  "movePrevKey": "ArrowLeft"
 }
