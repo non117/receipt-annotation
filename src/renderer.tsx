@@ -1,16 +1,41 @@
+import * as moment from "moment";
 import * as ReactDOM from "react-dom";
 import * as React from "react";
-import App from "./component/App";
+import ReceiptContainer from "./component/ReceiptContainer";
+import { LoadSettingFactory } from "./usecase/LoadSetting";
+import { LoadWalletListFactory } from "./usecase/LoadWalletList";
+import { OcrReceiptFactory } from "./usecase/OcrReceipt";
+import { RegisterKeyEventFactory } from "./usecase/RegisterKeyEvent";
+import receiptListRepository from "./infrastructure/ReceiptListRepository";
+import settingRepository from "./infrastructure/SettingRepository";
+import walletListRepository from "./infrastructure/WalletListRepository";
 
-const exampleState = {
-  "image": "/Users/non/Desktop/receipt/IMG_0001.jpg",
-  "accounts": ["hoge"],
-  "date": "2018-01-01",
-  "items": [
-    { "name": "a", "price": 1000, "account": "" },
-    { "name": "b", "price": 1000, "account": "" }
-  ],
-  "sum": 2000
+moment.locale("ja");
+// TODO: IPCでsaveしたいがほぼやる必要がない
+const settingsPath = "./config/settings.json";
+const walletsPath = "./config/wallets.json";
+LoadSettingFactory.create().execute(settingsPath);
+LoadWalletListFactory.create().execute(walletsPath);
+
+OcrReceiptFactory.create().execute();
+RegisterKeyEventFactory.create().execute();
+
+const renderHandler = () => {
+  const receiptList = receiptListRepository.get();
+  const walletList = walletListRepository.get();
+  if (receiptList.length() > 0) {
+    ReactDOM.render(
+      <ReceiptContainer
+        receipt={receiptList.getCurrent()}
+        index={receiptList.currentIndex}
+        length={receiptList.length()}
+        currentWallet={walletList.getCurrent().name}
+        walletNames={walletList.getWalletNames()}
+      />, document.getElementById("app")
+    );
+  }
 };
 
-ReactDOM.render(<App {...exampleState} />, document.getElementById("app"));
+receiptListRepository.onChange(renderHandler);
+settingRepository.onChange(renderHandler);
+renderHandler();

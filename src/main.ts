@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain, IpcMessageEvent } from "electron";
+import * as storage from "electron-json-storage";
 import * as path from "path";
 import * as url from "url";
 
@@ -32,4 +33,18 @@ app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on("requestLoadReceiptCache", (event: IpcMessageEvent, args: {}) => {
+  storage.get("cache", (error: Error, data: object) => {
+    const response = error ? error.message : data;
+    event.sender.send("responseLoadReceiptCache", response);
+  });
+});
+
+ipcMain.on("requestSaveReceiptCache", (event: IpcMessageEvent, args: object) => {
+  storage.set("cache", args, (error: Error) => {
+    const response = error ? error.message : { saved: true };
+    event.sender.send("responseSaveReceiptCache", response);
+  })
 });

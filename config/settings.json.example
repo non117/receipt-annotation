@@ -1,0 +1,8 @@
+{
+  "receiptImageDirectory": "full path of receipt image directory",
+  "outputDirectory": "output receipt directory",
+  "outputFormat": "qif",
+  "apiKey": "gcp api key",
+  "moveNextKey": "ArrowRight",
+  "movePrevKey": "ArrowLeft"
+}

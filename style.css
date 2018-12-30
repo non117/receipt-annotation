@@ -1,66 +1,97 @@
+#title {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 
-       table {
-        border-collapse: collapse;
-        border-spacing: 0;
-      }
-      tr:nth-child(even)
-      {
-        background-color: whitesmoke;
-      }
-      th, td {
-        width: 100px;
-        border: 1px solid #999;
-      }
-      .operation {
-        width: 40px;
-       background-color: white;
-        border: none;
-      }
-      tfoot td, tr#total td{
-        border: none;
-      }
-      tfoot td{
-        text-align: right;
-      }
-      thead {
-        background-color: #ddd;
-      }
-      body {
-        display: flex;
-        max-width: 1920px; 
-      box-sizing: border-box;  }
-      #receipt {
-        max-width: 400px;
-      }
-      #receipt-image {
-        width: 100%;
-        height: 600px;
-        overflow: auto;
-      }
-      #receipt-image img {
-        width: 100%;
-        height: auto;
-      }
-      #input {
-        flex: 1;
-        padding: 0% 2%;
-      }
-      div{
-        min-height: 60px;
-        display: flex;
-        align-items: center;
-      }
-      #register {
-        width : 100px;
-        height: 30px;
-        margin : 0px 0px 0px 260px;
-      }
-      select{
-        width: 150px;
-      }
-      label{
-        width: 100px;
-      }
-      button {
-        font-size: 200%;
-      }        
+#receipt {
+  width: 300px;
+}
+#receipt-image {
+  border: 1px solid #aaa;
+  width: 100%;
+  height: 800px;
+  overflow: auto;
+}
+#receipt-image img {
+  width: 100%;
+  height: auto;
+}
+#input-and-action {
+  flex: 0.5;
+  width: 300px;
+  padding: 5% 2% 2% 2%;
+  font-size: 18px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#input-and-action input,
+#input-and-action select
+{
+  font-size: inherit;
+  margin: 5px 0px 0px 10px;
+  width: 180px;
+}
+
+#input-and-action label:not(first-child)
+{
+  display: block;
+  margin: 10px 0px 0px 10px;
+  color: #444;
+}
+
+#input-and-action #label-price
+{
+  font-weight: bold;
+  color: black;
+}
+
+#input-and-action button.button-action{
+  font-size: inherit;
+  margin: 30px 20px 0px 0px;
+  border-radius: 3px;
+  background-color: white;
+}
+
+#register {
+  width : 100px;
+  height: 30px;
+  margin : 0px 0px 0px 260px;
+}
+ 
+#container {
+  display: flex;
+  justify-content: center;
+  width: inherit;
+  margin: inherit;
+}
+
+div#wrapper{
+  margin: 0px auto;
+}
+
+#wrapper #button-save {
+  margin: 30px auto;
+  display: block;
+  width: 200px;
+  font-size: 18px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#info {
+  text-align: center;
+  width: 300px;
+  margin-bottom: 15%;
+}
+
+tr#ignore input
+{
+  display:inline;
+}
+
+tr#ignore label
+{
+  display: inline;
+}
+tr#price {
+  background-color: seashell;
+}

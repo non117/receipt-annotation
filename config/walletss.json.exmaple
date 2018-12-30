@@ -1,0 +1,39 @@
+[
+  {
+    "name": "財布",
+    "defaultCreditAccount": "現金:財布",
+    "defaultDebitAccount": "費用:食費:外食",
+    "keywords": {
+      "セブン-イレブン": "資産:nanaco",
+      "フレスコ": "現金:財布",
+      "Fresco": "現金:財布"
+    },
+    "accounts": [
+      {
+        "name": "食費",
+        "fullName": "費用:生活:食費",
+        "type": "EXPENSE"
+      },
+      {
+        "name": "医療費",
+        "fullName": "費用:生活:食費",
+        "type": "EXPENSE"
+      },
+      {
+        "name": "交通費",
+        "fullName": "費用:交通費",
+        "type": "EXPENSE"
+      },
+      {
+        "name": "財布",
+        "fullName": "資産:流動資産:現金",
+        "type": "CASH"
+      },
+      {
+        "name": "カード1",
+        "fullName": "負債:クレジットカード1",
+        "type": "CREDIT"
+      }
+    ]
+  }
+]
