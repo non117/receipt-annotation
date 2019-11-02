@@ -1,9 +1,9 @@
-import * as React from "react";
+import React, { FC } from "react";
 import Account from "../domain/Account";
 import walletListRepository from "../infrastructure/WalletListRepository";
 import { SelectCreditAccountFactory } from "../usecase/SelectCreditAccount";
 
-export default (props: { creditAccount: Account, disabled: boolean }) => {
+export const CreditAccountSelector: FC<{ creditAccount: Account, disabled: boolean }> = (props) => {
   const selected = props.creditAccount && props.creditAccount.fullName;
   const creditAccounts = walletListRepository.get().getCurrent().accountList.filterCredit();
   const creditAccountOptions = creditAccounts.map(account =>

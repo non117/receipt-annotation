@@ -1,7 +1,7 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { UpdateIgnoredFactory } from "../usecase/UpdateIgnored";
 
-export default (props: { ignored: boolean }) => {
+export const IgnoreInput: FC<{ ignored: boolean }> = (props) => {
   return (
     <tr id="ignore">
       <td colSpan={2}>

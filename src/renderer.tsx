@@ -1,7 +1,7 @@
-import * as moment from "moment";
-import * as ReactDOM from "react-dom";
-import * as React from "react";
-import ReceiptContainer from "./component/ReceiptContainer";
+import moment from "moment";
+import ReactDOM from "react-dom";
+import React from "react";
+import { ReceiptContainer } from "./component/ReceiptContainer";
 import { LoadSettingFactory } from "./usecase/LoadSetting";
 import { LoadWalletListFactory } from "./usecase/LoadWalletList";
 import { OcrReceiptFactory } from "./usecase/OcrReceipt";

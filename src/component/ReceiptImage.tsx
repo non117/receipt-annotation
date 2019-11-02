@@ -1,6 +1,6 @@
-import * as React from "react";
+import React, { FC } from "react";
 
-export default (props: { imagePath: string }) => {
+export const ReceiptImage: FC<{ imagePath: string }> = (props) => {
   return (
     <section id="receipt">
       <div id="receipt-image">

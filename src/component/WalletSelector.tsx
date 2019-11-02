@@ -1,8 +1,8 @@
-import * as React from "react";
+import React, { FC } from "react";
 
 import { ChangeWalletFactory } from "../usecase/ChangeWallet";
 
-export default (props: { walletNames: Array<string>, current: string }) => {
+export const WalletSelector: FC<{ walletNames: Array<string>, current: string }> = (props) => {
   const walletOptions = props.walletNames.map(walletName =>
     <option value={walletName} key={walletName}>{walletName}</option>
   );

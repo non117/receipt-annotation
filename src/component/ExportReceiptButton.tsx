@@ -1,38 +1,25 @@
-import * as React from "react";
+import React, { FC, useEffect, useState } from "react";
 import { ExportReceiptFactory } from "../usecase/ExportReceipt";
 
-interface ExportReceiptButtonState {
-  message: string;
-}
-
-export default class ExportReceiptButton extends React.Component<{}, ExportReceiptButtonState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = { message: "" }
-  }
-  onSaveSuccess() {
-    this.setState({ message: "saved!" });
+export const ExportReceiptButton: FC = () => {
+  const [message, setMessage] = useState("");
+  const onButtonClick = () => {
+    const exportReceipt = ExportReceiptFactory.create();
+    exportReceipt.execute()
+      .then(() => setMessage("saved"))
+      .catch((e: Error) => setMessage(e.message));
+  };
+  useEffect(() => {
     window.setTimeout(() => {
-      this.setState({ message: "" });
+      setMessage("");
     }, 2000);
-  }
-  onSaveFailure(error: Error) {
-    this.setState({ message: error.message });
-  }
-  render(): React.ReactNode {
-    const onButtonClick = () => {
-      const exportReceipt = ExportReceiptFactory.create();
-      exportReceipt.execute().then(
-        this.onSaveSuccess.bind(this)
-      ).catch(
-        this.onSaveFailure.bind(this)
-      );
-    };
-    return (
-      <div>
-        <button id="button-save" onClick={onButtonClick}>Save</button>
-        <label>{ this.state.message }</label>
-      </div>
-    );
-  }
-}
+  }, [message]);
+  return (
+    <div>
+      <button id="button-save" onClick={onButtonClick}>
+        Save
+      </button>
+      <label>{message}</label>
+    </div>
+  );
+};

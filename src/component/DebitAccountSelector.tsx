@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef} from "react";
+import React, { FC, useEffect, useState, useRef} from "react";
 import Account from "../domain/Account";
 import walletListRepository from "../infrastructure/WalletListRepository";
 import { SelectDebitAccountFactory } from "../usecase/SelectDebitAccount";
@@ -9,7 +9,7 @@ interface Props {
   index: number;
 }
 
-export const DebitAccountSelector: React.FunctionComponent<Props> = ({
+export const DebitAccountSelector: FC<Props> = ({
   debitAccount,
   disabled,
   index

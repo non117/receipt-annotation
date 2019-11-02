@@ -1,20 +1,20 @@
-import * as React from "react";
+import React, { FC } from "react";
 
-import CreditAccountSelector from "./CreditAccountSelector";
+import { CreditAccountSelector } from "./CreditAccountSelector";
 import { DebitAccountSelector } from "./DebitAccountSelector";
-import DateSelector from "./DateSelector";
-import ExportReceiptButton from "./ExportReceiptButton";
-import IgnoreInput from "./IgnoreInput";
-import MemoInput from "./MemoInput";
-import PriceInput from "./PriceInput";
-import ReceiptImage from "./ReceiptImage";
-import WalletSelector from "./WalletSelector";
+import { DateSelector } from "./DateSelector";
+import { ExportReceiptButton } from "./ExportReceiptButton";
+import { IgnoreInput } from "./IgnoreInput";
+import { MemoInput } from "./MemoInput";
+import { PriceInput } from "./PriceInput";
+import { ReceiptImage } from "./ReceiptImage";
+import { WalletSelector } from "./WalletSelector";
 
 import Receipt from "../domain/Receipt";
 
 import { AddEmptyReceiptFactory } from "../usecase/AddEmptyReceipt"
 
-const PageInfo = (props: { index: number, length: number }) => {
+const PageInfo: FC<{ index: number, length: number }> = (props) => {
   return (
     <section id="info">
       {props.index + 1} / {props.length}
@@ -22,15 +22,15 @@ const PageInfo = (props: { index: number, length: number }) => {
   );
 }
 
-const Input = (props: { receipt: Receipt, index: number }) => {
-  const { debitAccount, creditAccount, date, memo, sum, ignored } = props.receipt;
+const Input: FC<{receipt: Receipt, index: number}> = ({ receipt, index }) => {
+  const { debitAccount, creditAccount, date, memo, sum, ignored } = receipt;
   return (
     <section id="input">
       <table>
         <tbody>
           <IgnoreInput ignored={ignored} />
           <DateSelector date={date} disabled={ignored} />
-          <DebitAccountSelector debitAccount={debitAccount} disabled={ignored} index={props.index} />
+          <DebitAccountSelector debitAccount={debitAccount} disabled={ignored} index={index} />
           <CreditAccountSelector creditAccount={creditAccount} disabled={ignored} />
           <PriceInput sum={sum} disabled={ignored} />
           <MemoInput memo={memo} disabled={ignored} />
@@ -41,7 +41,7 @@ const Input = (props: { receipt: Receipt, index: number }) => {
   );
 }
 
-interface ReceiptProps {
+interface ContainerProps {
   receipt: Receipt;
   index: number;
   length: number;
@@ -49,7 +49,7 @@ interface ReceiptProps {
   walletNames: Array<string>;
 }
 
-export default (props: ReceiptProps) => {
+export const ReceiptContainer: FC<ContainerProps> = (props) => {
   return (
     <div id="wrapper">
       <h1 id="title">Receipt Annotator</h1>

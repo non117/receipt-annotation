@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment from "moment";
 import Line from "../Line";
 import Receipt from "../Receipt";
 import Wallet from "../Wallet";

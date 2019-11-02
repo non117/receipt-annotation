@@ -1,7 +1,7 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { UpdateSumFactory } from "../usecase/UpdateSum";
 
-export default (props: { sum: number, disabled: boolean }) => {
+export const PriceInput: FC<{ sum: number, disabled: boolean }> = (props) => {
   return (
     <tr id="price">
       <td>

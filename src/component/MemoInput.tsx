@@ -1,7 +1,7 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { UpdateMemoFactory } from "../usecase/UpdateMemo";
 
-export default (props: { memo: string, disabled: boolean }) => {
+export const MemoInput: FC<{ memo: string, disabled: boolean }> = (props) => {
   return (
     <tr id="memo">
       <td>

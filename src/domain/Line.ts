@@ -1,6 +1,6 @@
 import Phrase from "./Phrase";
 import * as levenshtein from "fast-levenshtein";
-import * as moment from "moment";
+import moment from "moment";
 
 export default class Line {
   SUM_PATTERN = /合計/;

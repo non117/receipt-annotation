@@ -1,10 +1,10 @@
-import * as React from "react";
-import * as moment from "moment";
+import React, { FC } from "react";
+import moment from "moment";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { UpdateDateFactory } from "../usecase/UpdateDate";
 
-export default (props: { date: moment.Moment, disabled: boolean }) => {
+export const DateSelector: FC<{ date: moment.Moment, disabled: boolean }> = (props) => {
   return (
     <tr>
       <td>
