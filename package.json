@@ -5,7 +5,6 @@
   "author": "non <mail@non117.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/electron-json-storage": "^4.0.0",
     "@types/fast-levenshtein": "^0.0.1",
     "@types/react": "^16.9.11",
     "@types/react-datepicker": "^2.9.3",
@@ -25,7 +24,6 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "electron-json-storage": "^4.1.8",
     "fast-levenshtein": "^2.0.6",
     "moment": "^2.24.0",
     "react": "^16.11.0",
