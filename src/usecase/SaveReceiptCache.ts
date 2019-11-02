@@ -1,5 +1,5 @@
 import receiptListRepository, { ReceiptListRepository } from "../infrastructure/ReceiptListRepository";
-import { ipcRenderer, IpcMessageEvent } from "electron";
+import { ipcRenderer, IpcRendererEvent } from "electron";
 
 export class SaveReceiptCacheFactory {
   static create() {
@@ -18,7 +18,7 @@ export class SaveReceiptCache {
     const receipts = this.receiptListRepository.get().getAll();
     if (receipts.length > 0) {
       ipcRenderer.send("requestSaveReceiptCache", receipts);
-      ipcRenderer.on("responseSaveReceiptCache", (event: IpcMessageEvent, args: object) => {
+      ipcRenderer.on("responseSaveReceiptCache", (event: IpcRendererEvent, args: object) => {
         console.log(args); //FIXME: promisify?
       });
     }

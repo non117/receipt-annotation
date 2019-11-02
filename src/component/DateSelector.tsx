@@ -13,8 +13,8 @@ export default (props: { date: moment.Moment, disabled: boolean }) => {
       <td>
         <DatePicker
           disabled={props.disabled}
-          selected={props.date}
-          onChange={date => UpdateDateFactory.create().execute(date)}
+          selected={props.date.toDate()}
+          onChange={date => UpdateDateFactory.create().execute(moment(date))}
         />
       </td>
     </tr>
