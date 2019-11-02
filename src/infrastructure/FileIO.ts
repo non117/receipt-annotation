@@ -1,8 +1,8 @@
-import * as fs from "fs";
-import * as path from "path";
+import fs from "fs";
+import path from "path";
 // https://grizzlybit.info/2017/09/29/Node-JS-8-Util-Promisify/
-import * as util from "util";
-require('util.promisify').shim();
+import util from "util";
+require("util.promisify").shim();
 
 export function readFile(path: string): Buffer {
   return fs.readFileSync(path);
@@ -10,10 +10,12 @@ export function readFile(path: string): Buffer {
 }
 
 export function listImageFiles(directory: string): Array<string> {
-  const imageExts = [".jpg", ".png"]
+  const imageExts = [".jpg", ".png"];
   const basePath = path.resolve(directory);
   const files = fs.readdirSync(basePath);
-  return files.map(file => path.join(basePath, file)).filter(p => imageExts.includes(path.extname(p)));
+  return files
+    .map(file => path.join(basePath, file))
+    .filter(p => imageExts.includes(path.extname(p)));
 }
 
 export function writeFile(path: string, content: string): Promise<void> {
