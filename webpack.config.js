@@ -29,6 +29,9 @@ module.exports = [
       path: path.resolve(__dirname, 'dist'),
       filename: "main.js"
     },
+    node: {
+      __dirname: false
+    },
     module: {
       rules: [
         { test: /\.ts$/, use: "ts-loader" },

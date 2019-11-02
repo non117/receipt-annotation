@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, IpcMainEvent } from "electron";
+import { app, BrowserWindow } from "electron";
 import path from "path";
 import url from "url";
 
@@ -7,7 +7,10 @@ let mainWindow: Electron.BrowserWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
     height: 1200,
-    width: 1600
+    width: 1600,
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
   mainWindow.loadURL(
     url.format({
