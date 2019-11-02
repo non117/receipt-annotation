@@ -12,6 +12,8 @@ import WalletSelector from "./WalletSelector";
 
 import Receipt from "../domain/Receipt";
 
+import { AddEmptyReceiptFactory } from "../usecase/AddEmptyReceipt"
+
 const PageInfo = (props: { index: number, length: number }) => {
   return (
     <section id="info">
@@ -34,6 +36,7 @@ const Input = (props: { receipt: Receipt, index: number }) => {
           <MemoInput memo={memo} disabled={ignored} />
         </tbody>
       </table>
+      <button onClick={() => AddEmptyReceiptFactory.create().execute()}>Add Empty Receipt</button>
     </section>
   );
 }

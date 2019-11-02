@@ -25,3 +25,14 @@ export default function constructReceipt(
     ignored: false,
   });
 }
+
+export const emptyReceipt = (wallet: Wallet) => new Receipt({
+  imagePath: '',
+  date: moment(),
+  sum: 0,
+  memo: '',
+  creditAccount: wallet.getDefaultCreditAccount(),
+  lines: [],
+  debitAccount: wallet.getDefaultDebitAccount(),
+  ignored: false,
+})
