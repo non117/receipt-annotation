@@ -1,0 +1,17 @@
+{
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "editor.renderWhitespace": "all",
+  "editor.renderControlCharacters": true,
+  "editor.formatOnSave": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
+}

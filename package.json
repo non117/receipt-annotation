@@ -19,10 +19,9 @@
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
-    "build-main": "tsc",
-    "build-renderer-dev": "yarn run webpack --mode development",
+    "build": "yarn run webpack --mode development",
     "watch": "yarn run webpack --mode development --watch",
-    "start": "yarn run build-main && yarn run build-renderer-dev && yarn run electron ./dist/main.js"
+    "start": "yarn run build && yarn run electron ./dist/main.js"
   },
   "dependencies": {
     "axios": "^0.19.0",

@@ -1,22 +1,18 @@
 {
-  "extends": "tslint:recommended",
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "tslint-react"
+  ],
   "rules": {
-    "max-line-length": {
-      "options": [
-        120
-      ]
-    },
-    "new-parens": true,
-    "no-arg": true,
-    "no-bitwise": true,
-    "no-conditional-assignment": true,
-    "no-consecutive-blank-lines": false
+    "prettier": true,
+    "member-ordering": false,
+    "object-literal-sort-keys": false,
+    "interface-name": [true, "never-prefix"],
+    "jsx-boolean-value": false,
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false
   },
-  "jsRules": {
-    "max-line-length": {
-      "options": [
-        120
-      ]
-    }
-  }
+  "rulesDirectory": "tslint-plugin-prettier"
 }
