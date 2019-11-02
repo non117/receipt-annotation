@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import CreditAccountSelector from "./CreditAccountSelector";
-import DebitAccountSelector from "./DebitAccountSelector";
+import { DebitAccountSelector } from "./DebitAccountSelector";
 import DateSelector from "./DateSelector";
 import ExportReceiptButton from "./ExportReceiptButton";
 import IgnoreInput from "./IgnoreInput";
