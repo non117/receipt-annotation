@@ -3,6 +3,10 @@
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+body {
+  background-color: cornsilk
+}
+
 #receipt {
   width: 300px;
 }
@@ -57,7 +61,7 @@
   height: 30px;
   margin : 0px 0px 0px 260px;
 }
- 
+
 #container {
   display: flex;
   justify-content: center;
