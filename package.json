@@ -10,7 +10,7 @@
     "@types/react-datepicker": "^2.9.3",
     "@types/react-dom": "^16.9.3",
     "css-loader": "^3.2.0",
-    "electron": "^7.0.1",
+    "electron": "^7.2.4",
     "style-loader": "^1.0.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.6.4",
